@@ -8,6 +8,7 @@ import { CurrentUser } from '../contexts/CurrentUser';
 import LoginForm from './LoginForm';
 import Logout from './Logout';
 import AddUser from './AddUser';
+import MatchOptions from './MatchOptions';
 
 
 
@@ -38,15 +39,19 @@ function HomePage() {
                     element={<PTORequest />}
                 />*/}
                 <Route
+                    path='/match'
+                    element={<MatchOptions />}
+                />
+                <Route
                     path='/adduser'
-                    element={<AddUser />}
+                    element={<AddUser currentUser={currentUser}/>}
                 />
                 <Route
                     path='/logout'
                     element={<Logout />}
                 />
             </Routes>
-        } else {
+        } else if (currentUser.roles.includes('Gym Owner')){
             return <Routes>
                 {/*<Route
                     path='/'
@@ -55,11 +60,57 @@ function HomePage() {
                 <Route
                     path='/schedule'
                     element={<Schedule />}
-                />{/*}
+                />*/}
                 <Route
-                    path='/ptoRequest'
-                    element={<PTORequest />}
-        />*/}
+                    path='/match'
+                    element={<MatchOptions />}
+                />
+                <Route
+                    path='/adduser'
+                    element={<AddUser currentUser={currentUser}/>}
+                />
+                <Route
+                    path='/logout'
+                    element={<Logout />}
+                />
+            </Routes>
+        } else if (currentUser.roles.includes('Parent')) {
+            return <Routes>
+                {/*<Route
+                    path='/'
+                    element={<Navigate to='/schedule' />}
+                />
+                <Route
+                    path='/schedule'
+                    element={<Schedule />}
+                />*/}
+                <Route
+                    path='/match'
+                    element={<MatchOptions />}
+                />
+                <Route
+                    path='/adduser'
+                    element={<AddUser currentUser={currentUser}/>}
+                />
+                <Route
+                    path='/logout'
+                    element={<Logout />}
+                />
+            </Routes>
+        } else if (currentUser.roles.includes('Professor')) {
+            return <Routes>
+                {/*<Route
+                    path='/'
+                    element={<Navigate to='/schedule' />}
+                />
+                <Route
+                    path='/schedule'
+                    element={<Schedule />}
+                />*/}
+                <Route
+                    path='/match'
+                    element={<MatchOptions />}
+                />
                 <Route
                     path='/logout'
                     element={<Logout />}
@@ -71,15 +122,33 @@ function HomePage() {
     const roleSwitch = () => {
         if (currentUser.roles.includes('Admin')) {
             return <div className="navbar">
-            {/*<Link to='/'>
-                <h1>Home</h1>
-        </Link>*/}
-            {/*<Link to='/schedule'>
-                <h1>View/Edit Schedule</h1>
-            </Link>*/}{/*
-            <Link to='/ptoRequest'>
-                <h1>PTO Request</h1>
-            </Link>*/}
+            <Link to='/match'>
+                <h1>Start a Match</h1>
+            </Link>
+            <Link to='/adduser'>
+                <h1>Add User</h1>
+            </Link>
+            <Link to='/logout'>
+                <h1>Logout from {currentUser.username}</h1>
+            </Link>
+        </div>
+        } else if (currentUser.roles.includes('Gym Owner')){
+            return <div className="navbar">
+            <Link to='/match'>
+                <h1>Start a Match</h1>
+            </Link>
+            <Link to='/adduser'>
+                <h1>Add User</h1>
+            </Link>
+            <Link to='/logout'>
+                <h1>Logout from {currentUser.username}</h1>
+            </Link>
+        </div>
+        }  else if (currentUser.roles.includes('Parent')){
+            return <div className="navbar">
+            <Link to='/match'>
+                <h1>Start a Match</h1>
+            </Link>
             <Link to='/adduser'>
                 <h1>Add User</h1>
             </Link>
@@ -89,19 +158,13 @@ function HomePage() {
         </div>
         } else {
             return <div className="navbar">
-            {/*<Link to='/'>
-                <h1>Home</h1>
-        </Link>*/}
-            {/*<Link to='/schedule'>
-                <h1>View Schedule</h1>
-            </Link>*/}{/*
-            <Link to='/ptoRequest'>
-                <h1>PTO Request</h1>
-            </Link>*/}
+            <Link to='/match'>
+                <h1>Start a Match</h1>
+            </Link>
             <Link to='/logout'>
                 <h1>Logout from {currentUser.username}</h1>
             </Link>
-        </div>
+            </div>
         }
     }
 

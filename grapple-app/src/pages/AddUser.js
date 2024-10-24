@@ -1,9 +1,17 @@
 import { useState } from 'react'
 
-const AddUser = () => {
+const AddUser = (currentUser) => {
+    let currentUserDisagg = currentUser.currentUser
     let [addedUser, setAddedUser] = useState({ first_name: '', last_name: '', roles: '', username: '', password: '' })/*declare state variable to store user input from the form*/
     let [requestSent, setRequestSent] = useState(false)/*this flag is used to control whether the success/failure message gets displayed, i.e., whether the form has been submitted yet*/
     let [messageDisplayed, setMessageDisplayed] = useState('')/*this stores the message that gets displayed, will say success or error*/
+    let admin = currentUserDisagg.roles == 'Admin'
+    let gymOwner = currentUserDisagg.roles == 'Gym Owner'
+    let parent = currentUserDisagg.roles == 'Parent'
+    console.log("admin flag: ", admin);
+    console.log("gymOwner flag: ", gymOwner)
+    console.log("parent flag: ", parent)
+    console.log("user role is: ", currentUserDisagg.roles)
 
 
     /*
@@ -23,7 +31,7 @@ const AddUser = () => {
         //get the json response
         const json = await response.json()
         if (response.ok) {
-            setMessageDisplayed('New employee added!')
+            setMessageDisplayed(`New ${addedUser.roles} added!`)
             setRequestSent(true)
         } else {
             setMessageDisplayed('There was an error, please try again!')
@@ -45,34 +53,56 @@ const AddUser = () => {
             <p>{messageDisplayed}</p>
         </div>
         :
-        <div>
-            <label>First Name: </label>
-            <input type='text' onChange={(e) => {
-                setAddedUser({ ...addedUser, first_name: e.target.value })
-            }} />
-            <label>Last Name: </label>
-            <input type='text' onChange={(e) => {
-                setAddedUser({ ...addedUser, last_name: e.target.value })
-            }} />
-            <label>Roles: </label>
-            <select type='text' onChange={(e) => {
-                setAddedUser({ ...addedUser, roles: e.target.value })
-            }}>
-                <option value=" ">Choose Role</option>
-                <option value="Admin">Admin</option>
-                <option value="Regular">Non-Admin</option>
-            </select>
-            <label>Username: </label>
-            <input type='text' onChange={(e) => {
-                setAddedUser({ ...addedUser, username: e.target.value })
-            }} />
-            <label>Password: </label>
-            <input type='text' onChange={(e) => {
-                setAddedUser({ ...addedUser, password: e.target.value })
-            }} />
-            <button onClick={onAddUserSubmit}>Create User</button>
+        admin || gymOwner || parent ?
+            <div>
+                <label>First Name: </label>
+                <input type='text' onChange={(e) => {
+                    setAddedUser({ ...addedUser, first_name: e.target.value })
+                }} />
+                <label>Last Name: </label>
+                <input type='text' onChange={(e) => {
+                    setAddedUser({ ...addedUser, last_name: e.target.value })
+                }} />
+                <label>Roles: </label>
+                {admin ?
+                    <select type='text' onChange={(e) => {
+                        setAddedUser({ ...addedUser, roles: e.target.value })
+                    }}>
+                        <option value=" ">Choose Role</option>
+                        <option value="Gym Owner">Gym Owner</option>
+                        <option value="Professor">Professor</option>
+                        <option value="Student">Student</option>
+                        <option value="Parent">Parent</option>
+                    </select>
+                    :
+                    gymOwner ?
+                        <select type='text' onChange={(e) => {
+                            setAddedUser({ ...addedUser, roles: e.target.value })
+                        }}>
+                            <option value=" ">Choose Role</option>
+                            <option value="Student">Student</option>
+                            <option value="Professor">Professor</option>
+                        </select>
+                        :
+                        <select type='text' onChange={(e) => {
+                            setAddedUser({ ...addedUser, roles: e.target.value })
+                        }}>
+                            <option value="Student">Student</option>
+                        </select>
+                }
+                <label>Username: </label>
+                <input type='text' onChange={(e) => {
+                    setAddedUser({ ...addedUser, username: e.target.value })
+                }} />
+                <label>Password: </label>
+                <input type='text' onChange={(e) => {
+                    setAddedUser({ ...addedUser, password: e.target.value })
+                }} />
+                <button onClick={onAddUserSubmit}>Create User</button>
+            </div>
+            :
+            <div>You can't add users!</div>
 
-        </div>
 
 }
 
