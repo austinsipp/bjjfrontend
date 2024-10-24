@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 const AddUser = (currentUser) => {
     let currentUserDisagg = currentUser.currentUser
-    let [addedUser, setAddedUser] = useState({ first_name: '', last_name: '', roles: '', username: '', password: '' })/*declare state variable to store user input from the form*/
+    let [addedUser, setAddedUser] = useState({ first_name: '', last_name: '', roles: '', username: '', password: '', school_affiliation: '' })/*declare state variable to store user input from the form*/
     let [requestSent, setRequestSent] = useState(false)/*this flag is used to control whether the success/failure message gets displayed, i.e., whether the form has been submitted yet*/
     let [messageDisplayed, setMessageDisplayed] = useState('')/*this stores the message that gets displayed, will say success or error*/
     let admin = currentUserDisagg.roles == 'Admin'
@@ -90,6 +90,8 @@ const AddUser = (currentUser) => {
                             <option value="Student">Student</option>
                         </select>
                 }
+                {gymOwner || admin ?
+                <>
                 <label>Username: </label>
                 <input type='text' onChange={(e) => {
                     setAddedUser({ ...addedUser, username: e.target.value })
@@ -97,6 +99,14 @@ const AddUser = (currentUser) => {
                 <label>Password: </label>
                 <input type='text' onChange={(e) => {
                     setAddedUser({ ...addedUser, password: e.target.value })
+                }} />
+                </>
+                :
+                <></>
+            }
+                <label>School:</label>
+                <input  type='txt' onChange={(e) => {
+                    setAddedUser({...addedUser,school_affiliation: e.target.value})
                 }} />
                 <button onClick={onAddUserSubmit}>Create User</button>
             </div>
