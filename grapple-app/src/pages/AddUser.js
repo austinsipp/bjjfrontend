@@ -20,6 +20,7 @@ const AddUser = (currentUser) => {
     const onAddUserSubmit = async () => {
         console.log(addedUser)
         const response = await fetch('http://localhost:5000/users/add', {
+            credentials: 'include',
             method: 'POST',
             body: JSON.stringify(addedUser), //make the object json 
             headers: {
@@ -34,7 +35,8 @@ const AddUser = (currentUser) => {
             setMessageDisplayed(`New ${addedUser.roles} added!`)
             setRequestSent(true)
         } else {
-            setMessageDisplayed('There was an error, please try again!')
+            /*setMessageDisplayed('There was an error, please try again!')*/
+            setMessageDisplayed(json.error)
             setRequestSent(true)
         }
     }

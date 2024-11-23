@@ -20,7 +20,7 @@ function Logout() {
     async function handleSubmit(e) {
         e.preventDefault()
         console.log("logging out of ",currentUser)
-        const response = await fetch('http://localhost:5000/authentication/logout', {
+        const response = await fetch('http://localhost:5000/logout', {
             method: 'POST',
             credentials: 'include',
             headers: {
