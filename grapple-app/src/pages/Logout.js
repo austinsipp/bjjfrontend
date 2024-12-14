@@ -1,5 +1,6 @@
 import { useContext, useState } from "react"
-import { redirect } from "react-router"
+//import { redirect } from "react-router"
+import { useNavigate } from 'react-router-dom'
 import { CurrentUser } from "../contexts/CurrentUser"
 
 function Logout() {
@@ -7,6 +8,8 @@ function Logout() {
     const { currentUser, setCurrentUser } = useContext(CurrentUser)
 
     const [errorMessage, setErrorMessage] = useState(null)
+
+    const navigate = useNavigate();
 
     /*
     the mechanism by which the user logs out is that this route is hit, and
@@ -31,7 +34,12 @@ function Logout() {
         const data = await response.json()
         if (response.status === 200) {
             setCurrentUser(null)
-            redirect('/')
+            //redirect('/')
+            navigate('/')
+
+            /*useEffect(() => {
+              navigate('/');  // Redirects to the homepage
+            }, [navigate]);*/
         } else {
             setErrorMessage(data.message)
         }

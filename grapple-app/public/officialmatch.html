@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=0.5">
+    <title>Match Mode</title>
+    <link rel="stylesheet" href="./officialMatchStyles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sofadi+One&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="title">
+        <div id="logo"><img src="./PinnacleLogo.webp" alt="Logo"></div>
+        <div id="trademarkName" class="sofadi-one-regular">Official Match</div>
+        <div id="logo"><img src="./PinnacleLogo.webp" alt="Logo"></div>
+    </div>
+    <div id="scoreboard">
+        <div id="leftScore">0</div>
+        <div id="matchTimer">00:00</div>
+        <div id="rightScore">0</div>
+    </div>
+    <div id="controls">
+        <div id="leftControls">
+            <button id="leftDomination" class="button-dom">Dom Position</button>
+            <button id="leftAdvantage" class="button-adv">Advantage</button>
+            <div class="sweepSub">
+                <button id="leftSweep" class="sweepSubButton">Sweep</button>
+                <button id="leftSubmission" class="sweepSubButton">Submission</button>
+            </div>
+        </div>
+        <div id="neutralControls">
+            <button id="neutralPosition" class="button-dom">Neutral Position</button>
+            <button id="start" class="button-adv">Start</button>
+            <button id="pause" class="button-adv">Pause</button>
+        </div>
+        <div id="rightControls">
+            <button id="rightDomination" class="button-dom">Dom Position</button>
+            <button id="rightAdvantage" class="button-adv">Advantage</button>
+            <div class="sweepSub">
+                <button id="rightSweep" class="sweepSubButton">Sweep</button>
+                <button id="rightSubmission" class="sweepSubButton">Submission</button>
+            </div>
+        </div>
+    </div>
+    <script src="./officialMatchScore.js"></script>
+</body>
+
+</html>

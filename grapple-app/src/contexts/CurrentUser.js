@@ -12,12 +12,14 @@ function CurrentUserProvider({ children }){
     information down to the provider children components*/
     useEffect( ()=> {
         const getLoggedInUser = async () => {
+            console.log('getting current user first notice')
             let response = await fetch('http://localhost:5000/authentication/profile', {
                 credentials: 'include'/*this flag is to send the session cookie as well to be checked for validity*/
             })
             console.log('getting current user')
             console.log(await response)
             let user = await response.json()
+            console.log("current user is being set as",user)
             
             setCurrentUser(user)
         }
