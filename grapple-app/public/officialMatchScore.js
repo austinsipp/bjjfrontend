@@ -34,14 +34,6 @@ function onPausePress() {
     pause = true;
 }
 
-function onNeutralPositionPress() {
-    clearPress();
-    rightDom = false;
-    leftDom = false;
-    rightAdv = false;
-    leftAdv = false;
-}
-
 function onLeftDomPress() {
     clearPress();
     rightDom = false;
@@ -81,24 +73,48 @@ function onRightAdvPress() {
 function onLeftSweepPress() {
     leftSweepCount++;
     leftPoints = leftPoints + ptsPerSweep;
+    rightDom = false;
+    leftDom = false;
+    rightAdv = false;
+    leftAdv = false;
+    resetButtonText()
+    clearPress();
     document.getElementById('leftScore').innerHTML = leftPoints.toFixed(1);
 }
 
 function onRightSweepPress() {
     rightSweepCount++;
     rightPoints = rightPoints + ptsPerSweep;
+    rightDom = false;
+    leftDom = false;
+    rightAdv = false;
+    leftAdv = false;
+    resetButtonText()
+    clearPress();
     document.getElementById('rightScore').innerHTML = rightPoints.toFixed(1);
 }
 
 function onLeftSubPress() {
     leftSubCount++;
     leftPoints = leftPoints + ptsPerSub;
+    rightDom = false;
+    leftDom = false;
+    rightAdv = false;
+    leftAdv = false;
+    resetButtonText()
+    clearPress();
     document.getElementById('leftScore').innerHTML = leftPoints.toFixed(1);
 }
 
 function onRightSubPress() {
     rightSubCount++;
     rightPoints = rightPoints + ptsPerSub;
+    rightDom = false;
+    leftDom = false;
+    rightAdv = false;
+    leftAdv = false;
+    resetButtonText()
+    clearPress();
     document.getElementById('rightScore').innerHTML = rightPoints.toFixed(1);
 }
 
@@ -112,6 +128,7 @@ function onNeutralPress() {
     leftDom = false;
     rightAdv = false;
     leftAdv = false;
+    resetButtonText()
     document.getElementById("neutralPosition").style.background = "#4696FF";
 }
 
@@ -287,9 +304,21 @@ function filterDropdown() {
 
 }
 
+function resetButtonText() {
+    document.getElementById('leftDomination').textContent = "Dom Position"
+    document.getElementById('leftAdvantage').textContent = "Advantage"
+    document.getElementById('leftSubmission').textContent = "Submission"
+    document.getElementById('rightDomination').textContent = "Dom Position"
+    document.getElementById('rightAdvantage').textContent = "Advantage"
+    document.getElementById('rightSubmission').textContent = "Submission"
+}
+
 // Update button text when an item is selected
 function selectItem(item) {
-    dropdownBtn.textContent = item
+    resetButtonText()
+    if (!buttonPressed.includes('Sub') ) {/*for submissions we dont want to change the button text*/
+        dropdownBtn.textContent = item 
+    }
     dropdownList.style.display = 'none' // Close the dropdown
     clearFilter()
     window.removeEventListener('click', onClickOutsideDropdown)
