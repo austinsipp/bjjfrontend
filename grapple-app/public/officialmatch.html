@@ -25,11 +25,51 @@
     </div>
     <div id="controls">
         <div id="leftControls">
-            <button id="leftDomination" class="button-dom">Dom Position</button>
-            <button id="leftAdvantage" class="button-adv">Advantage</button>
+            <div class="dropdown-container">
+                <button id="leftDomination" class="button-dom" onclick="onButtonPress('leftDom')"
+                    onkeyup="filterDropdown()">Dom
+                    Position</button>
+                <div id="left-dom-dropdown-list" class="dropdown-list">
+                    <input type="text" id="left-dom-dropdown-input" class="dropdown-input" placeholder="Search..."
+                        onkeyup="filterDropdown()">
+                    <div class="dropdown-item" onclick="selectItem('Apple')">Apple</div>
+                    <div class="dropdown-item" onclick="selectItem('Banana')">Banana</div>
+                    <div class="dropdown-item" onclick="selectItem('Orange')">Orange</div>
+                    <div class="dropdown-item" onclick="selectItem('Pineapple')">Pineapple</div>
+                    <div class="dropdown-item" onclick="selectItem('Strawberry')">Strawberry</div>
+                    <div class="dropdown-item" onclick="selectItem('Watermelon')">Watermelon</div>
+                </div>
+            </div>
+            <div class="dropdown-container">
+                <button id="leftAdvantage" class="button-adv" onclick="onButtonPress('leftAdv')"
+                    onkeyup="filterDropdown()">Advantage</button>
+                <div id="left-adv-dropdown-list" class="dropdown-list">
+                    <input type="text" id="left-adv-dropdown-input" class="dropdown-input" placeholder="Search..."
+                        onkeyup="filterDropdown()">
+                    <div class="dropdown-item" onclick="selectItem('Apple')">Apple</div>
+                    <div class="dropdown-item" onclick="selectItem('Banana')">Banana</div>
+                    <div class="dropdown-item" onclick="selectItem('Orange')">Orange</div>
+                    <div class="dropdown-item" onclick="selectItem('Pineapple')">Pineapple</div>
+                    <div class="dropdown-item" onclick="selectItem('Strawberry')">Strawberry</div>
+                    <div class="dropdown-item" onclick="selectItem('Watermelon')">Watermelon</div>
+                </div>
+            </div>
             <div class="sweepSub">
                 <button id="leftSweep" class="sweepSubButton">Sweep</button>
-                <button id="leftSubmission" class="sweepSubButton">Submission</button>
+                <div class="dropdown-container">
+                    <button id="leftSubmission" class="sweepSubButton" onclick="onButtonPress('leftSub')"
+                        onkeyup="filterDropdown()">Submission</button>
+                    <div id="left-sub-dropdown-list" class="dropdown-list">
+                        <input type="text" id="left-sub-dropdown-input" class="dropdown-input" placeholder="Search..."
+                            onkeyup="filterDropdown()">
+                        <div class="dropdown-item" onclick="selectItem('Apple')">Apple</div>
+                        <div class="dropdown-item" onclick="selectItem('Banana')">Banana</div>
+                        <div class="dropdown-item" onclick="selectItem('Orange')">Orange</div>
+                        <div class="dropdown-item" onclick="selectItem('Pineapple')">Pineapple</div>
+                        <div class="dropdown-item" onclick="selectItem('Strawberry')">Strawberry</div>
+                        <div class="dropdown-item" onclick="selectItem('Watermelon')">Watermelon</div>
+                    </div>
+                </div>
             </div>
         </div>
         <div id="neutralControls">
@@ -38,11 +78,50 @@
             <button id="pause" class="button-adv">Pause</button>
         </div>
         <div id="rightControls">
-            <button id="rightDomination" class="button-dom">Dom Position</button>
-            <button id="rightAdvantage" class="button-adv">Advantage</button>
+            <div class="dropdown-container">
+                <button id="rightDomination" class="button-dom" onclick="onButtonPress('rightDom')"
+                    onkeyup="filterDropdown()">Dom Position</button>
+                <div id="right-dom-dropdown-list" class="dropdown-list">
+                    <input type="text" id="right-dom-dropdown-input" class="dropdown-input" placeholder="Search..."
+                        onkeyup="filterDropdown()">
+                    <div class="dropdown-item" onclick="selectItem('Apple')">Apple</div>
+                    <div class="dropdown-item" onclick="selectItem('Banana')">Banana</div>
+                    <div class="dropdown-item" onclick="selectItem('Orange')">Orange</div>
+                    <div class="dropdown-item" onclick="selectItem('Pineapple')">Pineapple</div>
+                    <div class="dropdown-item" onclick="selectItem('Strawberry')">Strawberry</div>
+                    <div class="dropdown-item" onclick="selectItem('Watermelon')">Watermelon</div>
+                </div>
+            </div>
+            <div class="dropdown-container">
+                <button id="rightAdvantage" class="button-adv" onclick="onButtonPress('rightAdv')"
+                    onkeyup="filterDropdown()">Advantage</button>
+                <div id="right-adv-dropdown-list" class="dropdown-list">
+                    <input type="text" id="right-adv-dropdown-input" class="dropdown-input" placeholder="Search..."
+                        onkeyup="filterDropdown()">
+                    <div class="dropdown-item" onclick="selectItem('Apple')">Apple</div>
+                    <div class="dropdown-item" onclick="selectItem('Banana')">Banana</div>
+                    <div class="dropdown-item" onclick="selectItem('Orange')">Orange</div>
+                    <div class="dropdown-item" onclick="selectItem('Pineapple')">Pineapple</div>
+                    <div class="dropdown-item" onclick="selectItem('Strawberry')">Strawberry</div>
+                    <div class="dropdown-item" onclick="selectItem('Watermelon')">Watermelon</div>
+                </div>
+            </div>
             <div class="sweepSub">
                 <button id="rightSweep" class="sweepSubButton">Sweep</button>
-                <button id="rightSubmission" class="sweepSubButton">Submission</button>
+                <div class="dropdown-container">
+                    <button id="rightSubmission" class="sweepSubButton" onclick="onButtonPress('rightSub')"
+                        onkeyup="filterDropdown()">Submission</button>
+                    <div id="right-sub-dropdown-list" class="dropdown-list">
+                        <input type="text" id="right-sub-dropdown-input" class="dropdown-input" placeholder="Search..."
+                            onkeyup="filterDropdown()">
+                        <div class="dropdown-item" onclick="selectItem('Apple')">Apple</div>
+                        <div class="dropdown-item" onclick="selectItem('Banana')">Banana</div>
+                        <div class="dropdown-item" onclick="selectItem('Orange')">Orange</div>
+                        <div class="dropdown-item" onclick="selectItem('Pineapple')">Pineapple</div>
+                        <div class="dropdown-item" onclick="selectItem('Strawberry')">Strawberry</div>
+                        <div class="dropdown-item" onclick="selectItem('Watermelon')">Watermelon</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

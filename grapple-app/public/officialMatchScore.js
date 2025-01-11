@@ -1,3 +1,5 @@
+/*This section is about scoring only*/
+
 var ptsPerSecAdv = 1;
 var ptsPerSecDom = 2;
 var ptsPerSweep = 40;
@@ -165,6 +167,8 @@ function onLoad() {
 }
 
 
+
+
 let startButton = document.querySelector('#start').addEventListener('click', () => { onStartPress() })
 let pauseButton = document.querySelector('#pause').addEventListener('click', () => { onPausePress() })
 let rightDomButton = document.querySelector('#rightDomination').addEventListener('click', () => { onRightDomPress() })
@@ -176,5 +180,121 @@ let rightSweepButton = document.querySelector('#rightSweep').addEventListener('c
 let leftSubButton = document.querySelector('#leftSubmission').addEventListener('click', () => { onLeftSubPress() })
 let rightSubButton = document.querySelector('#rightSubmission').addEventListener('click', () => { onRightSubPress() })
 let neutralButton = document.querySelector('#neutralPosition').addEventListener('click', () => { onNeutralPress() })
+
+
+
+
+
+
+/*This section is about managing the dropdowns and text inputs available to the user for various positions and sweeps*/
+
+
+let dropdownList
+let buttonPressed
+let userInput
+let items
+let dropdownBtn
+
+
+
+function onButtonPress(buttonName) {
+    switch (buttonName) {
+        case 'leftDom':
+            dropdownList = document.getElementById('left-dom-dropdown-list')
+            userInput = document.getElementById('left-dom-dropdown-input')
+            dropdownBtn = document.getElementById('leftDomination')
+            buttonPressed = buttonName
+            break
+        case 'leftAdv':
+            dropdownList = document.getElementById('left-adv-dropdown-list')
+            userInput = document.getElementById('left-adv-dropdown-input')
+            dropdownBtn = document.getElementById('leftAdvantage')
+            buttonPressed = buttonName
+            break
+        case 'leftSub':
+            dropdownList = document.getElementById('left-sub-dropdown-list')
+            userInput = document.getElementById('left-sub-dropdown-input')
+            dropdownBtn = document.getElementById('leftSubmission')
+            buttonPressed = buttonName
+            break
+        case 'rightDom':
+            dropdownList = document.getElementById('right-dom-dropdown-list')
+            userInput = document.getElementById('right-dom-dropdown-input')
+            dropdownBtn = document.getElementById('rightDomination')
+            buttonPressed = buttonName
+            break
+        case 'rightAdv':
+            dropdownList = document.getElementById('right-adv-dropdown-list')
+            userInput = document.getElementById('right-adv-dropdown-input')
+            dropdownBtn = document.getElementById('rightAdvantage')
+            buttonPressed = buttonName
+            break
+        case 'rightSub':
+            dropdownList = document.getElementById('right-sub-dropdown-list')
+            userInput = document.getElementById('right-sub-dropdown-input')
+            dropdownBtn = document.getElementById('rightSubmission')
+            buttonPressed = buttonName
+            break
+    }
+    items = dropdownList.getElementsByClassName('dropdown-item')
+    toggleDropdown()
+}
+
+function toggleDropdown() {
+    dropdownList.style.display = dropdownList.style.display === 'block' ? 'none' : 'block'
+    userInput.focus() // Automatically focus on the input field for immediate typing
+    window.addEventListener('click', onClickOutsideDropdown)
+}
+
+function clearFilter() {
+    userInput.value = ''
+    for (let i = 0; i < items.length; i++) {
+        const item = items[i]
+        item.style.display = 'block'
+    }
+}
+
+function onClickOutsideDropdown(event) {
+    console.log(event.target)
+    clearFilter()
+    if (!event.target.closest('.dropdown-container')) {
+        dropdownList.style.display = 'none';
+    }
+}
+
+
+// Filter dropdown items based on input
+function filterDropdown() {
+    const filter = userInput.value.toLowerCase()
+    let visibleItems = 0
+
+    for (let i = 0; i < items.length; i++) {
+        const item = items[i]
+        const text = item.textContent || item.innerText;
+        if (text.toLowerCase().includes(filter)) {
+            item.style.display = ''
+            visibleItems++
+        } else {
+            item.style.display = 'none'
+        }
+    }
+
+    // Hide dropdown if no items match
+    if (visibleItems === 0) {
+        dropdownList.style.display = 'none';
+    }
+
+
+}
+
+// Update button text when an item is selected
+function selectItem(item) {
+    dropdownBtn.textContent = item
+    dropdownList.style.display = 'none' // Close the dropdown
+    clearFilter()
+    window.removeEventListener('click', onClickOutsideDropdown)
+}
+
+
 
 onLoad();

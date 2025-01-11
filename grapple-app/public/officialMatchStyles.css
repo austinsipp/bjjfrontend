@@ -159,6 +159,7 @@ body {
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
+    /*width:100%;*/
 }
 
 .button-adv {
@@ -189,3 +190,30 @@ body {
     -webkit-user-select: none;
     touch-action: manipulation;
 }
+
+
+.dropdown-list {
+    /*position: absolute;
+    width: 100%;
+    border: 1px solid #ccc;
+    background-color: white;
+    max-height: 150px;
+    overflow-y: auto;*/
+    display: none;
+    z-index: 100;
+}
+
+.dropdown-item {
+    padding: 8px;
+    cursor: pointer;
+}
+.dropdown-item:hover {
+    background-color: #ddd;
+}
+
+
+.dropdown-container {
+    /*margin: 0;           /* Remove any default margin */
+    /*padding: 0;          /* Remove any default padding */
+    display: contents;   /* Make the wrapper behave as if it doesn't exist */
+  }
