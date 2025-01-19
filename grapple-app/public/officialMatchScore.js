@@ -7,7 +7,8 @@ var ptsPerSub = 240;
 var victoryAtPts = 360
 
 
-
+var event_list = []
+var current_event
 
 
 
@@ -41,6 +42,14 @@ function onLeftDomPress() {
     rightAdv = false;
     leftAdv = false;
     document.getElementById("leftDomination").style.background = "#4696FF";
+    current_event = {
+        event_type: 'dom position reached',
+        event_desc: '',
+        match_time: matchSec,
+        points_awarded: 0,
+        player: 'left'
+    }
+
 }
 
 function onRightDomPress() {
@@ -50,6 +59,13 @@ function onRightDomPress() {
     rightAdv = false;
     leftAdv = false;
     document.getElementById("rightDomination").style.background = "#4696FF";
+    current_event = {
+        event_type: 'dom position reached',
+        event_desc: '',
+        match_time: matchSec,
+        points_awarded: 0,
+        player: 'right'
+    }
 }
 
 function onLeftAdvPress() {
@@ -59,6 +75,13 @@ function onLeftAdvPress() {
     rightAdv = false;
     leftAdv = true;
     document.getElementById("leftAdvantage").style.background = "#4696FF";
+    current_event = {
+        event_type: 'adv position reached',
+        event_desc: '',
+        match_time: matchSec,
+        points_awarded: 0,
+        player: 'left'
+    }
 }
 
 function onRightAdvPress() {
@@ -68,6 +91,13 @@ function onRightAdvPress() {
     rightAdv = true;
     leftAdv = false;
     document.getElementById("rightAdvantage").style.background = "#4696FF";
+    current_event = {
+        event_type: 'adv position reached',
+        event_desc: '',
+        match_time: matchSec,
+        points_awarded: 0,
+        player: 'right'
+    }
 }
 
 function onLeftSweepPress() {
@@ -80,6 +110,13 @@ function onLeftSweepPress() {
     resetButtonText()
     clearPress();
     document.getElementById('leftScore').innerHTML = leftPoints.toFixed(1);
+    event_list.push({
+        event_type: 'sweep',
+        event_desc: '',
+        match_time: matchSec,
+        points_awarded: ptsPerSweep,
+        player: 'left'
+    })
 }
 
 function onRightSweepPress() {
@@ -92,6 +129,13 @@ function onRightSweepPress() {
     resetButtonText()
     clearPress();
     document.getElementById('rightScore').innerHTML = rightPoints.toFixed(1);
+    event_list.push({
+        event_type: 'sweep',
+        event_desc: '',
+        match_time: matchSec,
+        points_awarded: ptsPerSweep,
+        player: 'right'
+    })
 }
 
 function onLeftSubPress() {
@@ -104,6 +148,13 @@ function onLeftSubPress() {
     resetButtonText()
     clearPress();
     document.getElementById('leftScore').innerHTML = leftPoints.toFixed(1);
+    current_event = {
+        event_type: 'submission',
+        event_desc: '',
+        match_time: matchSec,
+        points_awarded: ptsPerSub,
+        player: 'left'
+    }
 }
 
 function onRightSubPress() {
@@ -116,10 +167,23 @@ function onRightSubPress() {
     resetButtonText()
     clearPress();
     document.getElementById('rightScore').innerHTML = rightPoints.toFixed(1);
+    current_event = {
+        event_type: 'submission',
+        event_desc: '',
+        match_time: matchSec,
+        points_awarded: ptsPerSub,
+        player: 'right'
+    }
 }
 
 function onStartPress() {
     pause = false;
+    event_list.push({
+        event_type: 'start match',
+        event_desc: '',
+        match_time: matchSec,
+        points_awarded: 0
+    })
 }
 
 function onNeutralPress() {
@@ -130,6 +194,12 @@ function onNeutralPress() {
     leftAdv = false;
     resetButtonText()
     document.getElementById("neutralPosition").style.background = "#4696FF";
+    event_list.push({
+        event_type: 'neutral position reached',
+        event_desc: '',
+        match_time: matchSec,
+        points_awarded: 0
+    })
 }
 
 function clearPress() {
@@ -179,6 +249,7 @@ function onLoad() {
             };
         } else {
             clearInterval(timer)
+            console.log(event_list)
         }
     }, 100);
 }
@@ -322,6 +393,7 @@ function selectItem(item) {
     dropdownList.style.display = 'none' // Close the dropdown
     clearFilter()
     window.removeEventListener('click', onClickOutsideDropdown)
+    event_list.push({...current_event ,event_desc: item }) /*add the name of the position or submission to the current event object and then push it to the events list*/
 }
 
 
