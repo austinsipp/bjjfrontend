@@ -387,6 +387,10 @@ function selectItem(item) {
     event_list.push({ ...current_event, event_desc: item }) /*add the name of the position or submission to the current event object and then push it to the events list*/
 }
 
+function submitResults() {
+    
+}
+
 
 let startButton = document.querySelector('#start').addEventListener('click', () => { onButtonPress('start') })
 let pauseButton = document.querySelector('#pause').addEventListener('click', () => { onButtonPress('pause') })
