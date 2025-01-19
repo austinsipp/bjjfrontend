@@ -72,7 +72,8 @@ body {
 
 #leftControls {
     display: flex;
-    flex-direction: column
+    flex-direction: column;
+    width: 35vw
 }
 
 #neutralControls {
@@ -82,12 +83,14 @@ body {
 
 #rightControls {
     display: flex;
-    flex-direction: column
+    flex-direction: column;
+    width: 35vw
 }
 
 .sweepSub {
     display: flex;
     flex-direction: row;
+    width: 35vw
 }
 
 .sofadi-one-regular {
@@ -217,3 +220,12 @@ body {
     /*padding: 0;          /* Remove any default padding */
     display: contents;   /* Make the wrapper behave as if it doesn't exist */
   }
+
+#submit {
+    justify-content:center;
+    display:flex
+}
+
+#submit-button {
+    width:100%
+}
