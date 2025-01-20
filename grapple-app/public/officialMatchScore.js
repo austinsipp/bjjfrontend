@@ -1,3 +1,8 @@
+/*get match id from session storage*/
+
+const match_id = sessionStorage.getItem('MatchID');
+
+
 /*This section is about scoring only*/
 
 var ptsPerSecAdv = 1;
@@ -387,8 +392,17 @@ function selectItem(item) {
     event_list.push({ ...current_event, event_desc: item }) /*add the name of the position or submission to the current event object and then push it to the events list*/
 }
 
-function submitResults() {
-    
+const submitResults = async () => {
+    console.log("json body:",{match_id,event_list})
+    const response = await fetch('http://localhost:5000/matchdata/add', {
+        credentials: 'include',
+        method: 'POST',
+        body: JSON.stringify({match_id,event_list}), //make the object json 
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    )
 }
 
 
