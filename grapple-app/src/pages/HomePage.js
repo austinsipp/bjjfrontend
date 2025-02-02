@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useContext } from 'react'
 import { Link } from "react-router-dom";
 
@@ -9,13 +9,17 @@ import LoginForm from './LoginForm';
 import Logout from './Logout';
 import AddUser from './AddUser';
 import MatchOptions from './MatchOptions';
+import ManageAccountData from './ManageAccountData';
+import ManageData from './ManageData';
+import ChangePassword from './ChangePassword';
+
 
 
 
 function HomePage() {
     const { currentUser } = useContext(CurrentUser)
     console.log("current user is ", currentUser)
-    
+
     /*
     This matches the navbar, not only do we want the navbar to only display the right links to the user,
     we want only certain routes to even be available to each user based on their role. Admins have access
@@ -44,14 +48,26 @@ function HomePage() {
                 />
                 <Route
                     path='/adduser'
-                    element={<AddUser currentUser={currentUser}/>}
+                    element={<AddUser currentUser={currentUser} />}
+                />
+                <Route
+                    path='/manageaccountdata'
+                    element={<ManageAccountData />}
+                />
+                <Route
+                    path='/manageaccountdata/manageyourdata'
+                    element={<ManageData />}
+                />
+                <Route
+                    path='/manageaccountdata/changepassword'
+                    element={<ChangePassword />}
                 />
                 <Route
                     path='/logout'
                     element={<Logout />}
                 />
             </Routes>
-        } else if (currentUser.roles.includes('Gym Owner')){
+        } else if (currentUser.roles.includes('Gym Owner')) {
             return <Routes>
                 {/*<Route
                     path='/'
@@ -67,7 +83,19 @@ function HomePage() {
                 />
                 <Route
                     path='/adduser'
-                    element={<AddUser currentUser={currentUser}/>}
+                    element={<AddUser currentUser={currentUser} />}
+                />
+                <Route
+                    path='/manageaccountdata'
+                    element={<ManageAccountData />}
+                />
+                <Route
+                    path='/manageaccountdata/manageyourdata'
+                    element={<ManageData />}
+                />
+                <Route
+                    path='/manageaccountdata/changepassword'
+                    element={<ChangePassword />}
                 />
                 <Route
                     path='/logout'
@@ -90,7 +118,19 @@ function HomePage() {
                 />
                 <Route
                     path='/adduser'
-                    element={<AddUser currentUser={currentUser}/>}
+                    element={<AddUser currentUser={currentUser} />}
+                />
+                <Route
+                    path='/manageaccountdata'
+                    element={<ManageAccountData />}
+                />
+                <Route
+                    path='/manageaccountdata/manageyourdata'
+                    element={<ManageData />}
+                />
+                <Route
+                    path='/manageaccountdata/changepassword'
+                    element={<ChangePassword />}
                 />
                 <Route
                     path='/logout'
@@ -122,55 +162,64 @@ function HomePage() {
     const roleSwitch = () => {
         if (currentUser.roles.includes('Admin')) {
             return <div className="navbar">
-            <Link to='/match'>
-                <h1>Start a Match</h1>
-            </Link>
-            <Link to='/adduser'>
-                <h1>Add User</h1>
-            </Link>
-            <Link to='/logout'>
-                <h1>Logout from {currentUser.username}</h1>
-            </Link>
-        </div>
-        } else if (currentUser.roles.includes('Gym Owner')){
+                <Link to='/match'>
+                    <h1>Start a Match</h1>
+                </Link>
+                <Link to='/adduser'>
+                    <h1>Add User</h1>
+                </Link>
+                <Link to='/manageaccountdata'>
+                    <h1>Manage Your Account/Data</h1>
+                </Link>
+                <Link to='/logout'>
+                    <h1>Logout from {currentUser.username}</h1>
+                </Link>
+            </div>
+        } else if (currentUser.roles.includes('Gym Owner')) {
             return <div className="navbar">
-            <Link to='/match'>
-                <h1>Start a Match</h1>
-            </Link>
-            <Link to='/adduser'>
-                <h1>Add User</h1>
-            </Link>
-            <Link to='/logout'>
-                <h1>Logout from {currentUser.username}</h1>
-            </Link>
-        </div>
-        }  else if (currentUser.roles.includes('Parent')){
+                <Link to='/match'>
+                    <h1>Start a Match</h1>
+                </Link>
+                <Link to='/adduser'>
+                    <h1>Add User</h1>
+                </Link>
+                <Link to='/manageaccountdata'>
+                    <h1>Manage Your Account/Data</h1>
+                </Link>
+                <Link to='/logout'>
+                    <h1>Logout from {currentUser.username}</h1>
+                </Link>
+            </div>
+        } else if (currentUser.roles.includes('Parent')) {
             return <div className="navbar">
-            <Link to='/match'>
-                <h1>Start a Match</h1>
-            </Link>
-            <Link to='/adduser'>
-                <h1>Add User</h1>
-            </Link>
-            <Link to='/logout'>
-                <h1>Logout from {currentUser.username}</h1>
-            </Link>
-        </div>
+                <Link to='/match'>
+                    <h1>Start a Match</h1>
+                </Link>
+                <Link to='/adduser'>
+                    <h1>Add User</h1>
+                </Link>
+                <Link to='/manageaccountdata'>
+                    <h1>Manage Your Account/Data</h1>
+                </Link>
+                <Link to='/logout'>
+                    <h1>Logout from {currentUser.username}</h1>
+                </Link>
+            </div>
         } else {
             return <div className="navbar">
-            <Link to='/match'>
-                <h1>Start a Match</h1>
-            </Link>
-            <Link to='/logout'>
-                <h1>Logout from {currentUser.username}</h1>
-            </Link>
+                <Link to='/match'>
+                    <h1>Start a Match</h1>
+                </Link>
+                <Link to='/logout'>
+                    <h1>Logout from {currentUser.username}</h1>
+                </Link>
             </div>
         }
     }
 
     return (
         <div className="App">
-            
+
             {currentUser ?
                 <BrowserRouter>
                     {/*<Navbar firstName={currentUser.first_name}/>*/}
