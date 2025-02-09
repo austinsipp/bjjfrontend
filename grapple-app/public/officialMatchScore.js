@@ -403,6 +403,14 @@ const submitResults = async () => {
         }
     }
     )
+    const json = await response.json()
+        if (response.ok) {
+            console.log(json)   
+            window.location.href = json.redirectTo         
+        } else {
+            /*setMessageDisplayed('There was an error, please try again!')*/
+            console.log(json)
+        }
 }
 
 
