@@ -1,12 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 
-const PositionPieChart = ({data_for_viz, data_for_filter}) => {
+const PositionPieChart = ({data_for_viz}) => {
   
-
-  const [selectedPlayer, setSelectedPlayer] = useState('All');
-  const [filteredData, setFilteredData] = useState(data_for_viz);
-
 
   const d3Container = useRef(null);
 
@@ -32,7 +28,7 @@ const PositionPieChart = ({data_for_viz, data_for_filter}) => {
     const pie = d3.pie().value(d => d.duration);
     const arc = d3.arc().innerRadius(0).outerRadius(radius);
 
-    const pieData = pie(filteredData);
+    const pieData = pie(data_for_viz);
     console.log("Position Chart pieData looks like:",pieData);
 
     svg
@@ -50,30 +46,21 @@ const PositionPieChart = ({data_for_viz, data_for_filter}) => {
       .append('text')
       .attr('transform', d => `translate(${arc.centroid(d)})`)
       .attr('dy', '0.35em')
-      .text(d => d.data.position_desc);
-  }, [filteredData]);
+      .attr('text-anchor', 'middle')
+      .text(d => d.data.position_desc)
+      .style('font-size', '14px')  // Set font size
+      .style('fill', 'black');     // Set font color;
+  }, [data_for_viz]);
 
 
 
-  const handleFilterChange = (event) => {
-    setSelectedPlayer(event.target.value);
-    setFilteredData(event.target.value === 'All' ? data_for_viz : data_for_viz.filter(d => d.player_id === Number(event.target.value)));
-  };
-
-
+ 
 
 
   return <div>
     <h2>Positions</h2>
       
-      {/* Dropdown filter for selecting company */}
-      <select onChange={handleFilterChange} value={selectedPlayer}>
-        <option value="All">All Players</option>
-        <option value="15">Austin</option>
-        <option value="16">Lucy</option>
-      </select>
-
-      {/* D3 Pie Chart */}
+     
       <div ref={d3Container}></div>
       </div>
 };

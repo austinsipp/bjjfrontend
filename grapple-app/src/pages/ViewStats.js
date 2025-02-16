@@ -5,13 +5,20 @@ import SubmissionPieChart from './SubmissionPieChart'
 import { CurrentUser } from '../contexts/CurrentUser';
 
 const ViewStats = () => {
-    
+
     const { currentUser } = useContext(CurrentUser)
     console.log("current user is ", currentUser)
-    
+
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState([{}])
+    const [positionPieFilteredData, setPositionPieFilteredData] = useState([{}])
+    const [submissionPieFilteredData, setSubmissionPieFilteredData] = useState([{}])
+    const [positionPieUnfilteredData, setPositionPieUnfilteredData] = useState([{}])
+    const [submissionPieUnfilteredData, setSubmissionPieUnfilteredData] = useState([{}])
     const [existingPlayers, setExistingPlayers] = useState([])
+    const [selectedPlayer, setSelectedPlayer] = useState('All');
+
+    /*let positionPieOriginalData = [{}]
+    let submissionPieOriginalData = [{}]*/
 
     const getPlayerList = async () => {
         const response = await fetch('http://localhost:5000/players/retrievePlayers', {
@@ -32,8 +39,10 @@ const ViewStats = () => {
             console.log('There was an error retrieving players. Please try again.')
         }
     }
+
     
-    
+
+
 
     const getData = async () => {
         setLoading(true)
@@ -50,33 +59,47 @@ const ViewStats = () => {
         //get the json response
         const json = await response.json()
         if (response.ok) {
-            console.log("made it here")
-            console.log("returned data is",json)
-            console.log("position data is:",json.positionPieChart[0])
-            console.log("submission data is:",json.submissionPieChart[0])
-            setData(json)
+            setPositionPieFilteredData(json.positionPieChart[0]);
+            setSubmissionPieFilteredData(json.submissionPieChart[0]);
+            setPositionPieUnfilteredData(json.positionPieChart[0]);
+            setSubmissionPieUnfilteredData(json.submissionPieChart[0]);
+            /*positionPieOriginalData = json.positionPieChart[0];*/
+            /*console.log("positionPieOriginalData 1",positionPieOriginalData)*/
+            /*submissionPieOriginalData = json.submissionPieChart[0];*/
             setLoading(false)
-            
+
         } else {
             /*setMessageDisplayed('There was an error, please try again!')*/
             console.log(json)
         }
-        
+
     }
 
     useEffect(() => {
         getData();
     }, []);
 
+    const handleFilterChange = (event) => {
+        setSelectedPlayer(event.target.value);
+        /*console.log("positionPieOriginalData 2",positionPieOriginalData)*/
+        setPositionPieFilteredData(event.target.value === 'All' ? positionPieUnfilteredData : positionPieUnfilteredData.filter(d => d.player_id === Number(event.target.value)));
+        setSubmissionPieFilteredData(event.target.value === 'All' ? submissionPieUnfilteredData : submissionPieUnfilteredData.filter(d => d.player_id === Number(event.target.value)));
+    };
+
 
     return <div className="dashboard">
-        {loading ? 
-        <div>Loading...</div>
-        :
-        <div>
-        <PositionPieChart data_for_viz={data.positionPieChart[0]} data_for_filter={existingPlayers}/>
-        <SubmissionPieChart data_for_viz={data.submissionPieChart[0]} data_for_filter={existingPlayers}/>
-        </div>
+        {loading ?
+            <div>Loading...</div>
+            :
+            <div>
+                <select onChange={handleFilterChange} value={selectedPlayer}>
+                    <option value="All">All Players</option>
+                    <option value="15">Austin</option>
+                    <option value="16">Lucy</option>
+                </select>
+                <PositionPieChart data_for_viz={positionPieFilteredData}  />
+                <SubmissionPieChart data_for_viz={submissionPieFilteredData} />
+            </div>
         }
     </div>
 }

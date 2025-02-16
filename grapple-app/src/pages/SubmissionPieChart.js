@@ -3,8 +3,6 @@ import * as d3 from 'd3';
 
 const SubmissionPieChart = ({ data_for_viz, data_for_filter }) => {
 
-    const [selectedPlayer, setSelectedPlayer] = useState('All');
-    const [filteredData, setFilteredData] = useState(data_for_viz);
 
 
     const d3Container = useRef(null);
@@ -31,7 +29,7 @@ const SubmissionPieChart = ({ data_for_viz, data_for_filter }) => {
         const pie = d3.pie().value(d => d.count);
         const arc = d3.arc().innerRadius(0).outerRadius(radius);
 
-        const pieData = pie(filteredData);
+        const pieData = pie(data_for_viz);
         console.log("Submission Chart pieData looks like:", pieData);
 
         svg
@@ -50,14 +48,9 @@ const SubmissionPieChart = ({ data_for_viz, data_for_filter }) => {
             .attr('transform', d => `translate(${arc.centroid(d)})`)
             .attr('dy', '0.35em')
             .text(d => d.data.position_desc);
-    }, [filteredData]);
+    }, [data_for_viz]);
 
 
-
-    const handleFilterChange = (event) => {
-        setSelectedPlayer(event.target.value);
-        setFilteredData(event.target.value === 'All' ? data_for_viz : data_for_viz.filter(d => d.player_id === Number(event.target.value)));
-    };
 
 
 
@@ -65,12 +58,6 @@ const SubmissionPieChart = ({ data_for_viz, data_for_filter }) => {
     return <div>
         <h2>Submissions Achieved</h2>
 
-        {/* Dropdown filter for selecting company */}
-        <select onChange={handleFilterChange} value={selectedPlayer}>
-            <option value="All">All Players</option>
-            <option value="15">Austin</option>
-            <option value="16">Lucy</option>
-        </select>
 
         {/* D3 Pie Chart */}
         <div ref={d3Container}></div>
