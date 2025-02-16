@@ -10,11 +10,13 @@ import AddPlayer from './AddPlayer';
 const MatchOptions = () => {
     const { currentUser } = useContext(CurrentUser)
     console.log("current user is ", currentUser)
-    const [leftPlayerName, setLeftPlayerName] = useState('');
-    const [rightPlayerName, setRightPlayerName] = useState('');
+    const [leftPlayerID, setLeftPlayerID] = useState('');
+    const [rightPlayerID, setRightPlayerID] = useState('');
     const [retrievingPlayers, setRetrievingPlayers] = useState(true);
     const [existingPlayers, setExistingPlayers] = useState([])
     const [trigger, setTrigger] = useState(false);
+    const [matchType, setMatchType] = useState('practice');
+    const [ruleSet, setRuleSet] = useState('GrappleStats Control');
 
 
 
@@ -22,16 +24,16 @@ const MatchOptions = () => {
 
 
     const createOfficialMatchClick = (event) => {
-        createMatch(event, 'official')
+        createMatch(event, matchType, ruleSet)
     }
 
-    const createMatch = async (event, matchType) => {
+    const createMatch = async (event, matchType, ruleSet) => {
         event.preventDefault()
-        console.log({ matchType, leftPlayerName, rightPlayerName })
+        console.log("match options:",{ ruleSet, matchType, leftPlayerID, rightPlayerID })
         const response = await fetch('http://localhost:5000/matches/add', {
             credentials: 'include',
             method: 'POST',
-            body: JSON.stringify({ matchType, leftPlayerName, rightPlayerName }), //make the object json 
+            body: JSON.stringify({ ruleSet, matchType, leftPlayerID, rightPlayerID }), //make the object json 
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -43,7 +45,7 @@ const MatchOptions = () => {
             console.log('API response:', json)
             sessionStorage.setItem('MatchID', JSON.stringify(json))
             /*After the API call, navigate to the stat taking page*/
-            window.location.href = event.target.href;  // Use the href attribute of the clicked link
+            window.location.href = './officialmatch.html';  
             console.log('API response:', json)
         } else {
             console.log('There was an error creating a new match. Please try again.')
@@ -75,6 +77,7 @@ const MatchOptions = () => {
         if (response.ok) {
             console.log('API response:', json)
             setExistingPlayers(json)
+            console.log("example player id:",json[0].player_id)
             setRetrievingPlayers(false)
 
         } else {
@@ -92,35 +95,52 @@ const MatchOptions = () => {
                 <form id="inputForm">
                     <label for="leftPlayerName">Player Name:</label>
                     <select type="text" id="leftPlayerName" required onChange={(e) => {
-                        setLeftPlayerName(e.target.value)
+                        setLeftPlayerID(e.target.value)
                     }}>
                         {existingPlayers.map((element) => {
-                            return <option value={element.player_name + ' ' + element.player_school}>{element.player_name + ' ' + element.player_school}</option>
+                            return <option value={element.player_id.toString()}>{element.player_name + ' ' + element.player_school}</option>
                         })
                         }
                     </select>
                     <br></br>
                     <label for="rightPlayerName">Opponent Name:</label>
                     <select type="text" id="rightPlayerName" required onChange={(e) => {
-                        setRightPlayerName(e.target.value)
+                        setRightPlayerID(e.target.value)
                     }}>
                         {existingPlayers.map((element) => {
-                            return <option value={element.player_name + ' ' + element.player_school}>{element.player_name + ' ' + element.player_school}</option>
+                            return <option value={element.player_id.toString()}>{element.player_name + ' ' + element.player_school}</option>
                         })
                         }
                     </select>
                 </form>
                 {<AddPlayer passdownFunction={refreshPlayerList} />}
                 <div className="navbarmatchtype">
-                    <a href="/officialmatch.html" onClick={createOfficialMatchClick}>Official Match</a>
-                    <a href="/competitivematch.html">Competitive Match</a>
-                    <a href="/practicematch.html">Practice Match</a>
+                <form id="inputForm">
+                    <label for="matchTypeField">Match Type:</label>
+                    <select type="text" id="matchTypeField" required onChange={(e) => {
+                        setMatchType(e.target.value)
+                    }}>
+                        <option value="official">Official Match</option>
+                        <option value="practice">Practice Match</option>
+                        <option value="competitive">Competitive Match</option>
+                    </select>
+                </form>
+                <form id="inputForm">
+                    <label for="ruleSetField">Rule Set:</label>
+                    <select type="text" id="ruleSetField" required onChange={(e) => {
+                        setRuleSet(e.target.value)
+                    }}>
+                        <option value="IBJJF">IBJJF</option>
+                        <option value="ADCC">ADCC</option>
+                        <option value="GrappleStats Control">GrappleStats Control</option>
+                    </select>
+                </form>
+                <button id="matchCreateSubmit" onClick={createOfficialMatchClick}>Create Match</button>
                 </div>
             </div>
         } else {
             return <div className="navbarmatchtype">
-                <a href="/competitivematch.html">Competitive Match</a>
-                <a href="/practicematch.html">Practice Match</a>
+                <div>This is still under construction!</div>
             </div>
         }
     }
