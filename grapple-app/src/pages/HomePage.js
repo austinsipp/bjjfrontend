@@ -12,6 +12,7 @@ import MatchOptions from './MatchOptions';
 import ManageAccountData from './ManageAccountData';
 import ManageData from './ManageData';
 import ChangePassword from './ChangePassword';
+import ViewStats from './ViewStats';
 
 
 
@@ -59,6 +60,10 @@ function HomePage() {
                     element={<ManageData />}
                 />
                 <Route
+                    path='/stats'
+                    element={<ViewStats />}
+                />
+                <Route
                     path='/manageaccountdata/changepassword'
                     element={<ChangePassword />}
                 />
@@ -94,6 +99,10 @@ function HomePage() {
                     element={<ManageData />}
                 />
                 <Route
+                    path='/stats'
+                    element={<ViewStats />}
+                />
+                <Route
                     path='/manageaccountdata/changepassword'
                     element={<ChangePassword />}
                 />
@@ -127,6 +136,10 @@ function HomePage() {
                 <Route
                     path='/manageaccountdata/manageyourdata'
                     element={<ManageData />}
+                />
+                <Route
+                    path='/stats'
+                    element={<ViewStats />}
                 />
                 <Route
                     path='/manageaccountdata/changepassword'
@@ -171,6 +184,9 @@ function HomePage() {
                 <Link to='/manageaccountdata'>
                     <h1>Manage Your Account/Data</h1>
                 </Link>
+                <Link to='/stats'>
+                    <h1>View Stats</h1>
+                </Link>
                 <Link to='/logout'>
                     <h1>Logout from {currentUser.username}</h1>
                 </Link>
@@ -186,6 +202,9 @@ function HomePage() {
                 <Link to='/manageaccountdata'>
                     <h1>Manage Your Account/Data</h1>
                 </Link>
+                <Link to='/stats'>
+                    <h1>View Stats</h1>
+                </Link>
                 <Link to='/logout'>
                     <h1>Logout from {currentUser.username}</h1>
                 </Link>
@@ -200,6 +219,9 @@ function HomePage() {
                 </Link>
                 <Link to='/manageaccountdata'>
                     <h1>Manage Your Account/Data</h1>
+                </Link>
+                <Link to='/stats'>
+                    <h1>View Stats</h1>
                 </Link>
                 <Link to='/logout'>
                     <h1>Logout from {currentUser.username}</h1>
