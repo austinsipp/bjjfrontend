@@ -9,12 +9,13 @@ on the main menu when using the app*/
 const ManageAccountData = () => {
 
     return (
-        <div>
+        <div className=/*"manage-account-container"*/"navbar-submenu">
+            <h1>Manage Your Account/Data</h1>
             <Link to='/manageaccountdata/manageyourdata'>
-                <h1>Manage Your Data</h1>
+                Manage Your Data
             </Link>
             <Link to='/manageaccountdata/changepassword'>
-                <h1>Change your Password</h1>
+                Change Your Password
             </Link>
         </div>
     );

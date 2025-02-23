@@ -13,6 +13,7 @@ import ManageAccountData from './ManageAccountData';
 import ManageData from './ManageData';
 import ChangePassword from './ChangePassword';
 import ViewStats from './ViewStats';
+import logo from '../grapplestatsLogo.png';
 
 
 
@@ -246,10 +247,17 @@ function HomePage() {
                 <BrowserRouter>
                     {/*<Navbar firstName={currentUser.first_name}/>*/}
                     <div className="pages">
+                        <div className="main-container">
+                            <div className="logo-container">
+                                <img src={logo} alt="GrappleApp Logo" className="logo" />
+                            </div>
+                            <div className="content">
+                                {roleSwitchRoutes()}
+                            </div>
 
-                        {roleSwitchRoutes()}
-                        {roleSwitch()}
 
+                            {roleSwitch()}
+                        </div>
                     </div>
                 </BrowserRouter>
                 :

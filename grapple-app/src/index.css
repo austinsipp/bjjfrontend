@@ -1,13 +1,503 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-color: #282A36;
+  /* Dark background */
+  color: #B0CBE8;
+  /* Light text */
+  font-family: 'Arial', sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Login Page Styles */
+.loginPageParent {
+  background-color: #282A36;
+  /* Dark background */
+  color: #B0CBE8;
+  /* Light text */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
+
+/* Login Form */
+.loginPage {
+  background-color: #33374d;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  width: 400px;
+  text-align: center;
+}
+
+h1 {
+  color: #B0CBE8;
+  margin-bottom: 20px;
+}
+
+/* Form Inputs */
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 2px solid #B0CBE8;
+  border-radius: 8px;
+  background-color: #444857;
+  color: #B0CBE8;
+}
+
+input[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background-color: #66b3ff;
+  border: none;
+  border-radius: 8px;
+  color: black;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+  background-color: #3385cc;
+}
+
+/* Main Container */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Logo Container */
+.logo-container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 5%;
+  background-color: #282A36;
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  width: auto;
+  height: auto;
+}
+
+/* Content Section */
+.content {
+  flex-grow: 1; /* Makes this area take all available space */
+  /*padding: 60px 20px 60px; *//* Add top and bottom padding to account for fixed header and navbar */
+  top: 5%;/*works with position fixed. The logo at the top takes 5% of the screen, so this makes the top at 5% below the top*/
+  overflow-y: auto; /* Allows scrolling if the content overflows */
+  background-color: #282A36;
+  position:fixed;
+  height:75vh;
+  width: 100%;
+  align-items: center;
+  /*padding-bottom:15%;*/
+}
+
+/* Button Styles for Navbar Links (optional, if needed for consistency) */
+.navbar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height:15%;
+  background-color: #33374d;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px 0;
+}
+
+.navbar a {
+  text-decoration: none;
+  background-color: #66b3ff;
+  padding: 12px 18px;
+  color: #4a4a4a;
+  font-size: 0.8rem;
+  border-radius: 8px;
+  text-align: center;
+  align-items: center;
+  display: block;
+  width: 180px;
+  transition: background-color 0.3s;
+}
+
+.navbar a:hover {
+  background-color: #3385cc;
+}
+
+.navbar h1{
+  color:#333333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+      flex-direction: column;
+  }
+
+  .navbar a {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 12px;
+  }
+
+  .content {
+      padding: 80px 10px 80px; /* Adjust for mobile spacing */
+  }
+}
+
+
+
+/* Container for the Manage Account Data submenu */
+/* Sub-Menu (Nested Navigation) Styles */
+.navbar-submenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #33374d;
+  /* Dark background for the sub-menu */
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  width: 300px;
+  height:70vh;
+  /* Set a fixed width to match button size */
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Links inside the sub-menu */
+.navbar-submenu a {
+  text-decoration: none;
+  background-color: #66b3ff;
+  padding: 12px 18px;
+  color: black;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  text-align: center;
+  display: block;
+  width: 80%;
+  /* Make the links a bit narrower than the container */
+  margin-bottom: 10px;
+  /* Space between links */
+  transition: background-color 0.3s;
+}
+
+.navbar-submenu a:hover {
+  background-color: #3385cc;
+}
+
+/* Responsive Design for Sub-Menu */
+@media (max-width: 768px) {
+  .navbar-submenu {
+    width: 100%;
+    /* Make it take up the full width on mobile */
+  }
+
+  .navbar-submenu a {
+    width: 100%;
+    /* Make links take up the full width on mobile */
+  }
+}
+
+
+
+
+/* AddUser Component Styles */
+
+.addUserWithButton {
+  background-color: #33374d; /* Dark background for the form */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  width: auto; /* Form width adjusted to fit in the container */
+  height:45vh;
+  /*max-width: 600px;*/ /* Set max width for the form */
+  margin: 10vh 0;
+  color: #B0CBE8; /* Light text color */
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between form elements */
+}
+.addUserContainer {
+  background-color: #33374d; /* Dark background for the form */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  width: 90%; /* Form width adjusted to fit in the container */
+  height:40vh;
+  /*max-width: 600px;*/ /* Set max width for the form */
+  margin: 0 0;
+  color: #B0CBE8; /* Light text color */
+  display: flex;
+  flex-direction: row;
+  gap: 20px; /* Space between form elements */
+}
+
+/* Form label styles */
+.addUserContainer label {
+  font-size: 1rem;
+  /*margin-bottom: 8px;*/
+  display: block;
+  color: #B0CBE8;
+}
+
+/* Input and Select field styles */
+.addUserContainer input,
+.addUserContainer select {
+  width: 100%;
+  /*padding: 12px;*/
+  /*margin-bottom: 15px;*/
+  border: 2px solid #B0CBE8;
+  border-radius: 8px;
+  background-color: #444857;
+  color: #B0CBE8;
+  font-size: 1rem;
+}
+
+/* Submit button styles */
+.addUserWithButton button {
+  width: 100%;
+  /*padding: 12px;*/
+  background-color: #66b3ff;
+  border: none;
+  border-radius: 8px;
+  color: black;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.addUserWithButton button:hover {
+  background-color: #3385cc;
+}
+
+/* Success and error message styles */
+.addUserContainer .message {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #66b3ff;
+  margin-top: 20px;
+}
+
+.addUserContainer .message.error {
+  color: #ff6666; /* Red color for error messages */
+}
+
+.addUserContainer .message.success {
+  color: #66b3ff; /* Light blue for success */
+}
+
+/* Styling for the form input groups in two columns */
+.input-group {
+  display: flex;
+  /*gap: 20px; *//* Space between fields */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  margin:1%;
+}
+
+.input-group label {
+  flex-basis: 100%; /* Make labels take up full width */
+}
+
+.input-group input,
+.input-group select {
+  flex: 1; /* Make inputs take up equal space */
+  height: 22px;
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+  .addUserContainer {
+    width: 95%; /* Make the form take up more space on smaller screens */
+    margin: 10px;
+  }
+
+  .input-group {
+    flex-direction: column; /* Stack inputs vertically on small screens */
+  }
+
+  .input-group input,
+  .input-group select {
+    width: 100%; /* Inputs take up full width in column layout */
+  }
+}
+
+.dashboard {
+  height: 75vh;
+}
+
+
+/* Style the scrollbar */
+::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+  height: 10px; /* Height of the horizontal scrollbar */
+}
+
+/* Style the track (the part the thumb slides within) */
+::-webkit-scrollbar-track {
+  background-color: #444857; /* Dark background to fit your color scheme */
+  border-radius: 5px;
+}
+
+/* Style the thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background-color: #33374d; /* Light color for the thumb */
+  border-radius: 5px;
+  border: 2px solid #33374d; /* Optional: border around the thumb */
+}
+
+/* Style the thumb on hover (optional) */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #33374d; /* Darker color for hover */
+}
+
+/* Optional: Style the scrollbar button (arrows at the ends) */
+::-webkit-scrollbar-button {
+  display: none; /* Hides the scrollbar buttons */
+}
+
+
+.matchInputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #33374d;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Form Labels */
+.matchInputs label {
+  font-size: 1rem;
+  color: #B0CBE8;
+  margin-bottom: 5px;
+}
+
+/* Form Inputs (Text and Select) */
+.matchInputs input[type="text"],
+.matchInputs select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 2px solid #B0CBE8;
+  border-radius: 8px;
+  background-color: #444857;
+  color: #B0CBE8;
+  font-size: 1rem;
+}
+
+/* Button Style */
+#matchCreateSubmit {
+  background-color: #66b3ff;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  color: black;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+}
+
+#matchCreateSubmit:hover {
+  background-color: #3385cc;
+}
+
+/* Style for the AddPlayer container */
+.addPlayer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+/* Button to trigger the Add Player form */
+#userAddPlayer {
+  background-color: #66b3ff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  color: black;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#userAddPlayer:hover {
+  background-color: #3385cc;
+}
+
+/* Style for the form once it is triggered (i.e., Add Player Form) */
+.addPlayerClicked {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: #33374d;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  max-width: 400px;
+  width: 100%;
+}
+
+/* Form Labels for Add Player */
+.addPlayerClicked label {
+  font-size: 1rem;
+  color: #B0CBE8;
+  margin-bottom: 5px;
+}
+
+/* Input fields inside AddPlayer form */
+.addPlayerClicked input {
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 2px solid #B0CBE8;
+  border-radius: 8px;
+  background-color: #444857;
+  color: #B0CBE8;
+  font-size: 1rem;
+  width: 100%;
+}
+
+/* Submit button for Add Player */
+#userAddPlayerSubmit {
+  background-color: #66b3ff;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  color: black;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#userAddPlayerSubmit:hover {
+  background-color: #3385cc;
+}
+
+/* Display success/error messages after submitting the form */
+.addPlayer div {
+  font-size: 1rem;
+  color: #B0CBE8;
+  padding-top: 10px;
+}
+
+/* Success message style */
+.addPlayer div.success {
+  color: #66ff66;
+}
+
+/* Error message style */
+.addPlayer div.error {
+  color: #ff6666;
+}
+

@@ -56,60 +56,69 @@ const AddUser = (currentUser) => {
         </div>
         :
         admin || gymOwner || parent ?
-            <div>
-                <label>First Name: </label>
-                <input type='text' onChange={(e) => {
-                    setAddedUser({ ...addedUser, first_name: e.target.value })
-                }} />
-                <label>Last Name: </label>
-                <input type='text' onChange={(e) => {
-                    setAddedUser({ ...addedUser, last_name: e.target.value })
-                }} />
-                <label>Roles: </label>
-                {admin ?
-                    <select type='text' onChange={(e) => {
-                        setAddedUser({ ...addedUser, roles: e.target.value })
-                    }}>
-                        <option value=" ">Choose Role</option>
-                        <option value="Gym Owner">Gym Owner</option>
-                        <option value="Professor">Professor</option>
-                        <option value="Student">Student</option>
-                        <option value="Parent">Parent</option>
-                    </select>
-                    :
-                    gymOwner ?
-                        <select type='text' onChange={(e) => {
-                            setAddedUser({ ...addedUser, roles: e.target.value })
-                        }}>
-                            <option value=" ">Choose Role</option>
-                            <option value="Student">Student</option>
-                            <option value="Professor">Professor</option>
-                        </select>
+            <div className="addUserWithButton">
+                <div className="addUserContainer">
+                    <div className="input-group">
+                        <label>First Name: </label>
+                        <input type='text' onChange={(e) => {
+                            setAddedUser({ ...addedUser, first_name: e.target.value })
+                        }} />
+                        <label>Last Name: </label>
+                        <input type='text' onChange={(e) => {
+                            setAddedUser({ ...addedUser, last_name: e.target.value })
+                        }} />
+
+                        <label>Roles: </label>
+                        {admin ?
+                            <select type='text' onChange={(e) => {
+                                setAddedUser({ ...addedUser, roles: e.target.value })
+                            }}>
+                                <option value=" ">Choose Role</option>
+                                <option value="Gym Owner">Gym Owner</option>
+                                <option value="Professor">Professor</option>
+                                <option value="Student">Student</option>
+                                <option value="Parent">Parent</option>
+                            </select>
+                            :
+                            gymOwner ?
+                                <select type='text' onChange={(e) => {
+                                    setAddedUser({ ...addedUser, roles: e.target.value })
+                                }}>
+                                    <option value=" ">Choose Role</option>
+                                    <option value="Student">Student</option>
+                                    <option value="Professor">Professor</option>
+                                </select>
+                                :
+                                <select type='text' onChange={(e) => {
+                                    setAddedUser({ ...addedUser, roles: e.target.value })
+                                }}>
+                                    <option value="Student">Student</option>
+                                </select>
+                        }
+                    </div>
+                    {gymOwner || admin ?
+                        <>
+                            <div className="input-group">
+                                <label>Username: </label>
+                                <input type='text' onChange={(e) => {
+                                    setAddedUser({ ...addedUser, username: e.target.value })
+                                }} />
+                                <label>Password: </label>
+                                <input type='text' onChange={(e) => {
+                                    setAddedUser({ ...addedUser, password: e.target.value })
+                                }} />
+                            </div>
+                        </>
                         :
-                        <select type='text' onChange={(e) => {
-                            setAddedUser({ ...addedUser, roles: e.target.value })
-                        }}>
-                            <option value="Student">Student</option>
-                        </select>
-                }
-                {gymOwner || admin ?
-                <>
-                <label>Username: </label>
-                <input type='text' onChange={(e) => {
-                    setAddedUser({ ...addedUser, username: e.target.value })
-                }} />
-                <label>Password: </label>
-                <input type='text' onChange={(e) => {
-                    setAddedUser({ ...addedUser, password: e.target.value })
-                }} />
-                </>
-                :
-                <></>
-            }
-                <label>School:</label>
-                <input  type='txt' onChange={(e) => {
-                    setAddedUser({...addedUser,school_affiliation: e.target.value})
-                }} />
+                        <></>
+                    }
+                    <div className="input-group">
+                        <label>School:</label>
+                        <input type='txt' onChange={(e) => {
+                            setAddedUser({ ...addedUser, school_affiliation: e.target.value })
+                        }} />
+                    </div>
+                </div>
                 <button onClick={onAddUserSubmit}>Create User</button>
             </div>
             :

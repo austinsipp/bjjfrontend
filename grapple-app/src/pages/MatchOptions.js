@@ -74,10 +74,11 @@ const MatchOptions = () => {
         )
         //get the json response
         const json = await response.json()
-        if (response.ok) {
+        if (response.ok ) {
             console.log('API response:', json)
+            console.log('API response length:', json.length)
             setExistingPlayers(json)
-            console.log("example player id:",json[0].player_id)
+            /*console.log("example player id:",json[0].player_id)*//*this will error out if the user hasnt created any players yet, so make sure there are players before using this for testing*/
             setRetrievingPlayers(false)
 
         } else {
