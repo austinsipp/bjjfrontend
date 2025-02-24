@@ -10,12 +10,12 @@ const ChangePassword = () => {
         current: '',
         new: '',
         confirm: ''
-    })
+    })/*need 3 fields to change your password, your current password, and matching new passwords*/
 
 
-    const [errorMessage, setErrorMessage] = useState("no error")
+    const [errorMessage, setErrorMessage] = useState("no error")/*store the error message if there is one or "no error" until there is one*/
 
-    const checkMatch = () => {
+    const checkMatch = () => {/*just checks whether the new passwords were typed correctly twice*/
         if (pwChangeData.new === pwChangeData.confirm) {
             setErrorMessage("no error")
         } else {
@@ -23,18 +23,18 @@ const ChangePassword = () => {
         }
     }
 
-    useEffect(() => {checkMatch()} ,[pwChangeData])
+    useEffect(() => {checkMatch()} ,[pwChangeData])/*checks whether the new passwords match every time anything changes in the form*/
 
     const onSubmitClick = async (event) => {
-        event.preventDefault()
-        checkMatch()
-        if (errorMessage === null) {
+        event.preventDefault()/*prevents the page reload when a submit button is clicked*/
+        checkMatch()/*check that the passwords match one final time*/
+        if (errorMessage === null) {/*only submit if the final check is passed*/
             
             console.log(pwChangeData)
             const response = await fetch('http://localhost:5000/changepassword', {
                 credentials: 'include',
                 method: 'POST',
-                body: JSON.stringify(pwChangeData), //make the object json 
+                body: JSON.stringify(pwChangeData), 
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -46,7 +46,7 @@ const ChangePassword = () => {
                 console.log('API response:', json)
 
             } else {
-                console.log('Error:', json.error)
+                console.log('Error:', json.error)/*backend has some helpful error messages and eventually we only want preset ones here, but it currently sends the error message no matter what it is*/
             }
         }
     }
@@ -55,7 +55,7 @@ const ChangePassword = () => {
 
 
 
-    return (
+    return (/*can implement password rules in the future here*/
         <div>
             <form id="inputForm">
                 <label htmlFor="currentPassword">Current Password</label>

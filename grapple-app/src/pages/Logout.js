@@ -33,15 +33,15 @@ function Logout() {
         })
         const data = await response.json()
         if (response.status === 200) {
-            setCurrentUser(null)
+            setCurrentUser(null)/*set sthe current user to null, but really the invalid session from the backend is what stops the user from being able to do anything*/
             //redirect('/')
-            navigate('/')
+            navigate('/')/*on logout, navigate back to /. This makes it so that if a user logs right back in, they are at the / path, rather than where they left off, which is what I want for now*/
 
             /*useEffect(() => {
               navigate('/');  // Redirects to the homepage
             }, [navigate]);*/
         } else {
-            setErrorMessage(data.message)
+            setErrorMessage(data.message)/*there really shouldnt ever be an error logging out, only got here during testing once and never again, havent had issues*/
         }
 
     }

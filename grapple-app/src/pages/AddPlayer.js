@@ -2,16 +2,32 @@ import { useContext, useState } from 'react'
 
 import { CurrentUser } from '../contexts/CurrentUser';
 
+
+/*Add player is intended for parent users who are recording stats. 
+They need a way to reference certain players to record stats for them. 
+The backend will store for each user the players that they have created 
+so that the user can put them in a match and record stats.
+This is as opposed to creating full blown student user accounts who an admin or 
+gym owner might be able to create.I haven't decided yet if I even want 
+to separate users and players. I want any paying user to be able to 
+record match stats for any player theyve created. It gets a bit hairier 
+with gym-owner or admins, because I want them to be able to create 
+players that other users can record stats for, whereas parents 
+must create every player they want to reference themselves*/
+
 const AddPlayer = (passdownFunctionReceived) => {
+    /*passed down function is the refreshPlayerList function, which 
+    updates the dropdown list. Once a player is added, I want the 
+    dropdown to refresh immediately, which is why we need it in this component as well*/
     const { passdownFunction } = passdownFunctionReceived
     const { currentUser } = useContext(CurrentUser)
     console.log("current user is ", currentUser)
     
-    const [addPlayerClick, setAddPlayerClick] = useState(false);
-    const [addedPlayer, setAddedPlayer] = useState({ player_name: '', player_school: '', player_belt: ''})/*declare state variable to store user input from the form*/
-    const [addPlayerSubmitted, setAddPlayerSubmitted] = useState(false);
-    const [addPlayerSuccess, setAddPlayerSuccess] = useState(false);
-    const [addPlayerErrorMessage, setAddPlayerErrorMessage] = useState('')
+    const [addPlayerClick, setAddPlayerClick] = useState(false);/*initially, the form is not visible, because the user might not need to add a player. addPlayerClick controls whether the form is displayed*/
+    const [addedPlayer, setAddedPlayer] = useState({ player_name: '', player_school: '', player_belt: ''})/*store user input from the form*/
+    const [addPlayerSubmitted, setAddPlayerSubmitted] = useState(false);/*flags whether a new player has been submitted. If it has, we want the form to disappear*/
+    const [addPlayerSuccess, setAddPlayerSuccess] = useState(false);/*flags whether the submitted form has received a successful response from the API. When True it will let the user know that their player was successfully created in the backend*/
+    const [addPlayerErrorMessage, setAddPlayerErrorMessage] = useState('')/*gives the user the erro message from the server if there is one*/
 
     const onSubmitClick = async () => {
         setAddPlayerSubmitted(true)
@@ -19,7 +35,7 @@ const AddPlayer = (passdownFunctionReceived) => {
         const response = await fetch('http://localhost:5000/players/add', {
             credentials: 'include',
             method: 'POST',
-            body: JSON.stringify(addedPlayer), //make the object json 
+            body: JSON.stringify(addedPlayer), 
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -37,7 +53,7 @@ const AddPlayer = (passdownFunctionReceived) => {
         } else {
             /*setMessageDisplayed('There was an error, please try again!')*/
             console.log(json)
-            setAddPlayerErrorMessage(json.error)
+            setAddPlayerErrorMessage(json.error)/*the server defines a handful of errors with helpful messages but even if it isn't a designed message the backend will still pass what it has to display to the user. Eventually we don't want this because lay-users don't need anything but the pre-set messages*/
             setAddPlayerSuccess(false)
         }
         

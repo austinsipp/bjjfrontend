@@ -8,7 +8,7 @@ function LoginForm() {
     const [credentials, setCredentials] = useState({
         username: '',
         password: ''
-    })
+    })/*need a place to store these for submission to the server*/
 
     const [errorMessage, setErrorMessage] = useState(null)
 
@@ -17,7 +17,7 @@ function LoginForm() {
     cookie session, and a backend record in the session table. 
     */
     async function handleSubmit(e) {
-        e.preventDefault()
+        e.preventDefault()/*prevent a full page reload on a submit button click*/
         const response = await fetch('http://localhost:5000/', {
             method: 'POST',
             credentials: 'include',
@@ -28,9 +28,9 @@ function LoginForm() {
         })
         const data = await response.json()
         if (response.status === 200) {
-            setCurrentUser(data.user)
+            setCurrentUser(data.user)/*once this is set in the context, then this component will disappear because the homepage will have a current user. This is only displayed when there is no current user*/
         } else {
-            setErrorMessage(data.message)
+            setErrorMessage(data.message)/*display error message if the server sends one*/
         }
 
     }
