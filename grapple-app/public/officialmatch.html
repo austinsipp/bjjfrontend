@@ -14,9 +14,7 @@
 
 <body>
     <div id="title">
-        <div id="logo"><img src="./PinnacleLogo.webp" alt="Logo"></div>
-        <div id="trademarkName" class="sofadi-one-regular">Official Match</div>
-        <div id="logo"><img src="./PinnacleLogo.webp" alt="Logo"></div>
+        <img id="trademarkName" src="../src/grapplestatsLogo.png" alt="GrappleApp Logo" className="logo" />
     </div>
     <div id="scoreboard">
         <div id="leftScore">0</div>
@@ -25,86 +23,33 @@
     </div>
     <div id="controls">
         <div id="leftControls">
-            <div class="dropdown-container">
-                <button id="leftDomination" class="button-dom"
-                    >Dom
+            <div id="left-dom-dropdown" class="dropdown-container">
+                <button id="leftDomination" class="button-domLeft">Dom
                     Position</button>
                 <div id="left-dom-dropdown-list" class="dropdown-list">
-                    <input type="text" id="left-dom-dropdown-input" class="dropdown-input" placeholder="Search..."
-                        >
-                        <div class="dropdown-item" onclick="selectItem('Side Control')">Side Control</div>
-                        <div class="dropdown-item" onclick="selectItem('Back Take')">Back Take</div>
-                        <div class="dropdown-item" onclick="selectItem('Full Mount')">Full Mount</div>
+                    <input type="text" id="left-dom-dropdown-input" class="dropdown-input" placeholder="Search...">
+                    <div class="dropdown-item" onclick="selectItem('Side Control')">Side Control</div>
+                    <div class="dropdown-item" onclick="selectItem('Back Take')">Back Take</div>
+                    <div class="dropdown-item" onclick="selectItem('Full Mount')">Full Mount</div>
                 </div>
             </div>
-            <div class="dropdown-container">
-                <button id="leftAdvantage" class="button-adv" 
-                    >Advantage</button>
+            <div id="left-adv-dropdown" class="dropdown-container">
+                <button id="leftAdvantage" class="button-advLeft">Advantage</button>
                 <div id="left-adv-dropdown-list" class="dropdown-list">
-                    <input type="text" id="left-adv-dropdown-input" class="dropdown-input" placeholder="Search..."
-                        >
+                    <input type="text" id="left-adv-dropdown-input" class="dropdown-input" placeholder="Search...">
                     <div class="dropdown-item" onclick="selectItem('Half Guard')">Half Guard</div>
                     <div class="dropdown-item" onclick="selectItem('Deep Half')">Deep Half</div>
                     <div class="dropdown-item" onclick="selectItem('Quarter Guard')">Quarter Guard</div>
                     <div class="dropdown-item" onclick="selectItem('Turtle')">Turtle</div>
                 </div>
             </div>
-            <div class="sweepSub">
-                <button id="leftSweep" class="sweepSubButton">Sweep</button>
+            <div id="left-sub-dropdown" class="sweepSub">
+                <button id="leftSweep" class="sweepSubButtonLeft">Sweep</button>
                 <div class="dropdown-container">
-                    <button id="leftSubmission" class="sweepSubButton" 
-                        >Submission</button>
+                    <button id="leftSubmission" class="sweepSubButtonLeft">Submission</button>
                     <div id="left-sub-dropdown-list" class="dropdown-list">
-                        <input type="text" id="left-sub-dropdown-input" class="dropdown-input" placeholder="Search..."
-                            >
-                            <div class="dropdown-item" onclick="selectItem('Kimura')">Kimuar</div>
-                            <div class="dropdown-item" onclick="selectItem('Americana')">Americana</div>
-                            <div class="dropdown-item" onclick="selectItem('Rear Naked Choke')">Rear Naked Choke</div>
-                            <div class="dropdown-item" onclick="selectItem('Guillotine')">Guillotine</div>
-                            <div class="dropdown-item" onclick="selectItem('Darce Choke')">D'Arce Choke</div>
-                            <div class="dropdown-item" onclick="selectItem('Triangle Choke')">Triangle Choke</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="neutralControls">
-            <button id="neutralPosition" class="button-dom">Neutral Position</button>
-            <button id="start" class="button-adv">Start</button>
-            <button id="pause" class="button-adv">Pause</button>
-        </div>
-        <div id="rightControls">
-            <div class="dropdown-container">
-                <button id="rightDomination" class="button-dom" 
-                    >Dom Position</button>
-                <div id="right-dom-dropdown-list" class="dropdown-list">
-                    <input type="text" id="right-dom-dropdown-input" class="dropdown-input" placeholder="Search..."
-                        >
-                    <div class="dropdown-item" onclick="selectItem('Side Control')">Side Control</div>
-                    <div class="dropdown-item" onclick="selectItem('Back Take')">Back Take</div>
-                    <div class="dropdown-item" onclick="selectItem('Full Mount')">Full Mount</div>
-                </div>
-            </div>
-            <div class="dropdown-container">
-                <button id="rightAdvantage" class="button-adv" 
-                    >Advantage</button>
-                <div id="right-adv-dropdown-list" class="dropdown-list">
-                    <input type="text" id="right-adv-dropdown-input" class="dropdown-input" placeholder="Search..."
-                        >
-                        <div class="dropdown-item" onclick="selectItem('Half Guard')">Half Guard</div>
-                        <div class="dropdown-item" onclick="selectItem('Deep Half')">Deep Half</div>
-                        <div class="dropdown-item" onclick="selectItem('Quarter Guard')">Quarter Guard</div>
-                        <div class="dropdown-item" onclick="selectItem('Turtle')">Turtle</div>
-                </div>
-            </div>
-            <div class="sweepSub">
-                <button id="rightSweep" class="sweepSubButton">Sweep</button>
-                <div class="dropdown-container">
-                    <button id="rightSubmission" class="sweepSubButton" 
-                        >Submission</button>
-                    <div id="right-sub-dropdown-list" class="dropdown-list">
-                        <input type="text" id="right-sub-dropdown-input" class="dropdown-input" placeholder="Search..."
-                            >
-                        <div class="dropdown-item" onclick="selectItem('Kimura')">Kimuar</div>
+                        <input type="text" id="left-sub-dropdown-input" class="dropdown-input" placeholder="Search...">
+                        <div class="dropdown-item" onclick="selectItem('Kimura')">Kimura</div>
                         <div class="dropdown-item" onclick="selectItem('Americana')">Americana</div>
                         <div class="dropdown-item" onclick="selectItem('Rear Naked Choke')">Rear Naked Choke</div>
                         <div class="dropdown-item" onclick="selectItem('Guillotine')">Guillotine</div>
@@ -112,11 +57,54 @@
                         <div class="dropdown-item" onclick="selectItem('Triangle Choke')">Triangle Choke</div>
                     </div>
                 </div>
+                <button id="leftAggression" class="aggressionButtonLeft">Aggression Point</button>
+            </div>
+        </div>
+        <div id="neutralControls">
+            <button id="neutralPosition" class="button-posNeutral">Neutral Position</button>
+            <button id="start" class="button-startNeutral">Start</button>
+            <button id="pause" class="button-startNeutral">Pause</button>
+        </div>
+        <div id="rightControls">
+            <div id="right-dom-dropdown" class="dropdown-container">
+                <button id="rightDomination" class="button-domRight">Dom Position</button>
+                <div id="right-dom-dropdown-list" class="dropdown-list">
+                    <input type="text" id="right-dom-dropdown-input" class="dropdown-input" placeholder="Search...">
+                    <div class="dropdown-item" onclick="selectItem('Side Control')">Side Control</div>
+                    <div class="dropdown-item" onclick="selectItem('Back Take')">Back Take</div>
+                    <div class="dropdown-item" onclick="selectItem('Full Mount')">Full Mount</div>
+                </div>
+            </div>
+            <div id="right-adv-dropdown" class="dropdown-container">
+                <button id="rightAdvantage" class="button-advRight">Advantage</button>
+                <div id="right-adv-dropdown-list" class="dropdown-list">
+                    <input type="text" id="right-adv-dropdown-input" class="dropdown-input" placeholder="Search...">
+                    <div class="dropdown-item" onclick="selectItem('Half Guard')">Half Guard</div>
+                    <div class="dropdown-item" onclick="selectItem('Deep Half')">Deep Half</div>
+                    <div class="dropdown-item" onclick="selectItem('Quarter Guard')">Quarter Guard</div>
+                    <div class="dropdown-item" onclick="selectItem('Turtle')">Turtle</div>
+                </div>
+            </div>
+            <div class="sweepSub">
+                <button id="rightSweep" class="sweepSubButtonRight">Sweep</button>
+                <div id="right-sub-dropdown" class="dropdown-container">
+                    <button id="rightSubmission" class="sweepSubButtonRight">Submission</button>
+                    <div id="right-sub-dropdown-list" class="dropdown-list">
+                        <input type="text" id="right-sub-dropdown-input" class="dropdown-input" placeholder="Search...">
+                        <div class="dropdown-item" onclick="selectItem('Kimura')">Kimura</div>
+                        <div class="dropdown-item" onclick="selectItem('Americana')">Americana</div>
+                        <div class="dropdown-item" onclick="selectItem('Rear Naked Choke')">Rear Naked Choke</div>
+                        <div class="dropdown-item" onclick="selectItem('Guillotine')">Guillotine</div>
+                        <div class="dropdown-item" onclick="selectItem('Darce Choke')">D'Arce Choke</div>
+                        <div class="dropdown-item" onclick="selectItem('Triangle Choke')">Triangle Choke</div>
+                    </div>
+                </div>
+                <button id="rightAggression" class="aggressionButtonRight">Aggression Point</button>
             </div>
         </div>
     </div>
     <div id="submit">
-        <button id="submit-button" class="button-dom">Submit</button>
+        <button id="submit-button">Submit</button>
     </div>
     <script src="./officialMatchScore.js"></script>
 </body>

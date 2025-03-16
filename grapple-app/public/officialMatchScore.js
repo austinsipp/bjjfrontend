@@ -38,11 +38,16 @@ var rightSubCount = 0;
 
 
 function clearPress() {
-    document.getElementById("leftDomination").style.background = "linear-gradient(to top left,rgba(70,150,255,0.3) -150%,#FFF)";
-    document.getElementById("leftAdvantage").style.background = "linear-gradient(to top left,rgba(70,150,255,0.3) -150%,#FFF)";
-    document.getElementById("neutralPosition").style.background = "linear-gradient(to top left,rgba(70,150,255,0.3) -150%,#FFF)";
-    document.getElementById("rightDomination").style.background = "linear-gradient(to top left,rgba(70,150,255,0.3) -150%,#FFF)";
-    document.getElementById("rightAdvantage").style.background = "linear-gradient(to top left,rgba(70,150,255,0.3) -150%,#FFF)";
+    document.getElementById("leftDomination").style.background = "linear-gradient(45deg, #00ddeb, #007bff)";
+    document.getElementById("leftAdvantage").style.background = "linear-gradient(45deg, #00ddeb, #007bff)";
+    document.getElementById("neutralPosition").style.background = "linear-gradient(45deg, #ffffff, #d0d0d0)";
+    document.getElementById("rightDomination").style.background = "linear-gradient(45deg, #ff2e63, #ff007a)";
+    document.getElementById("rightAdvantage").style.background = "linear-gradient(45deg, #ff2e63, #ff007a)";
+    const dropdowns = document.querySelectorAll('.dropdown-list');
+    dropdowns.forEach(function (dropdown) {
+        dropdown.style.display = 'none';
+    });
+
 }
 
 
@@ -125,7 +130,7 @@ function onButtonPress(buttonName) {
             leftDom = true;
             rightAdv = false;
             leftAdv = false;
-            document.getElementById("leftDomination").style.background = "#4696FF";
+            document.getElementById("leftDomination").style.background = "linear-gradient(45deg, #006B70, #003D80)";
             current_event = {
                 event_type: 'dom position reached',
                 event_desc: '',
@@ -144,7 +149,7 @@ function onButtonPress(buttonName) {
             leftDom = false;
             rightAdv = false;
             leftAdv = true;
-            document.getElementById("leftAdvantage").style.background = "#4696FF";
+            document.getElementById("leftAdvantage").style.background = "linear-gradient(45deg, #006B70, #003D80)";
             current_event = {
                 event_type: 'adv position reached',
                 event_desc: '',
@@ -202,7 +207,7 @@ function onButtonPress(buttonName) {
             leftDom = false;
             rightAdv = false;
             leftAdv = false;
-            document.getElementById("rightDomination").style.background = "#4696FF";
+            document.getElementById("rightDomination").style.background = "linear-gradient(45deg, #80162F, #80003A)";
             current_event = {
                 event_type: 'dom position reached',
                 event_desc: '',
@@ -221,7 +226,7 @@ function onButtonPress(buttonName) {
             leftDom = false;
             rightAdv = true;
             leftAdv = false;
-            document.getElementById("rightAdvantage").style.background = "#4696FF";
+            document.getElementById("rightAdvantage").style.background = "linear-gradient(45deg, #80162F, #80003A)";
             current_event = {
                 event_type: 'adv position reached',
                 event_desc: '',
@@ -297,7 +302,7 @@ function onButtonPress(buttonName) {
             rightAdv = false;
             leftAdv = false;
             resetButtonText()
-            document.getElementById("neutralPosition").style.background = "#4696FF";
+            document.getElementById("neutralPosition").style.background = "linear-gradient(45deg, #B3B3B3, #8F8F8F)";
             event_list.push({
                 event_type: 'neutral position reached',
                 event_desc: '',
@@ -316,7 +321,16 @@ function toggleDropdown() {
     dropdownList.style.display = dropdownList.style.display === 'block' ? 'none' : 'block'
     userInput.focus() // Automatically focus on the input field for immediate typing
     if (!buttonPressed.includes('Sub')) {/*we don't want them to be able to click away for submissions*/
-        window.addEventListener('click', onClickOutsideDropdown)
+        window.addEventListener('click', onClickOutsideDropdown, { capture: true/*, once: true*/ })
+        /*the once: true flag automatically removes the event listener after the first execution. 
+        This is good because I don't want it to persist because the capture flag on this one stops 
+        all other actions in a sense. The capture flag is important here because the default 
+        behavior is that when something is clicked, the element (in our problematic cases this 
+        would be a button) the event on that element gets executed and then it propagates to the 
+        window (where I am adding this event listener). But this isnt what I want, because I want 
+        the window event listener to execute first and then stop the propagation to the element's 
+        actions. This is what the capture flag does, force it to execute first, and in the function 
+        I have stop propagation, so it doesnt get to the element action*/
     }
 }
 
@@ -329,11 +343,65 @@ function clearFilter() {
 }
 
 function onClickOutsideDropdown(event) {
+    console.log("button pressed", buttonPressed)
     console.log(event.target)
+
+    let stopProp = true
+
     clearFilter()
-    if (!event.target.closest('.dropdown-container')) {
-        dropdownList.style.display = 'none';
+    switch (buttonPressed) {
+        case 'leftDom':
+            if (event.target.closest('#left-dom-dropdown')) {
+                dropdownList.style.display = 'none';
+                stopProp = false
+            }
+            break
+        case 'leftAdv':
+            if (event.target.closest('#left-adv-dropdown')) {
+                dropdownList.style.display = 'none';
+                stopProp = false
+            }
+            break
+        case 'leftSub':
+            if (event.target.closest('#left-sub-dropdown')) {
+                dropdownList.style.display = 'none';
+                stopProp = false
+            }
+            break
+        case 'rightDom':
+            if (event.target.closest('#right-dom-dropdown')) {
+                dropdownList.style.display = 'none';
+                stopProp = false
+            }
+            break
+        case 'rightAdv':
+            if (event.target.closest('#right-adv-dropdown')) {
+                dropdownList.style.display = 'none';
+                stopProp = false
+            }
+            break
+        case 'rightSub':
+            if (event.target.closest('#right-sub-dropdown')) {
+                dropdownList.style.display = 'none';
+                stopProp = false
+            }
+            break
+
+
     }
+    console.log("stopping Propagation:", stopProp)
+    if (stopProp) {
+        event.stopPropagation()/*this is to stop the propagation of the event from the window event 
+        listener to the button pressed. If I don't have this and someone clicks on a button outside 
+        of a visible dropdown, then that button's action will execute, but I don't want that. If 
+        they click outside of the dropdown then I want the dropdown to disappear. The event listener 
+        only runs once and is automatically removed to basically reset back to normal when no dropdown 
+        is visible*/
+    }
+
+    /*if (!event.target.closest('.dropdown-container')) {
+        dropdownList.style.display = 'none';
+    }*/
 }
 
 
@@ -388,29 +456,29 @@ function selectItem(item) {
         document.getElementById('rightScore').innerHTML = rightPoints.toFixed(1);
     }
     clearFilter()
-    window.removeEventListener('click', onClickOutsideDropdown)
+    window.removeEventListener('click', onClickOutsideDropdown, { capture: true/*, once: true*/ }) 
     event_list.push({ ...current_event, event_desc: item }) /*add the name of the position or submission to the current event object and then push it to the events list*/
 }
 
 const submitResults = async () => {
-    console.log("json body:",{match_id,event_list})
+    console.log("json body:", { match_id, event_list })
     const response = await fetch('http://localhost:5000/matchdata/add', {
         credentials: 'include',
         method: 'POST',
-        body: JSON.stringify({match_id,event_list}), //make the object json 
+        body: JSON.stringify({ match_id, event_list }), //make the object json 
         headers: {
             'Content-Type': 'application/json'
         }
     }
     )
     const json = await response.json()
-        if (response.ok) {
-            console.log(json)   
-            window.location.href = json.redirectTo         
-        } else {
-            /*setMessageDisplayed('There was an error, please try again!')*/
-            console.log(json)
-        }
+    if (response.ok) {
+        console.log(json)
+        window.location.href = json.redirectTo
+    } else {
+        /*setMessageDisplayed('There was an error, please try again!')*/
+        console.log(json)
+    }
 }
 
 
