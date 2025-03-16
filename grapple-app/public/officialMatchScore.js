@@ -33,6 +33,8 @@ var leftSweepCount = 0;
 var rightSweepCount = 0;
 var leftSubCount = 0;
 var rightSubCount = 0;
+var leftAggressionPts = 0;
+var rightAggressionPts = 0;
 
 
 
@@ -201,6 +203,16 @@ function onButtonPress(buttonName) {
                 player: 'left'
             })
             break
+        case 'leftAggression':
+            leftAggressionpts++;
+            event_list.push({
+                event_type: 'aggression',
+                event_desc: '',
+                match_time: matchSec,
+                points_awarded: 0,
+                player: 'left'
+            })
+            break
         case 'rightDom':
             clearPress();
             rightDom = true;
@@ -274,6 +286,16 @@ function onButtonPress(buttonName) {
                 event_desc: '',
                 match_time: matchSec,
                 points_awarded: ptsPerSweep,
+                player: 'right'
+            })
+            break
+        case 'rightAggression':
+            leftAggressionpts++;
+            event_list.push({
+                event_type: 'aggression',
+                event_desc: '',
+                match_time: matchSec,
+                points_awarded: 0,
                 player: 'right'
             })
             break
