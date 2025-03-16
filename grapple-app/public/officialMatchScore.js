@@ -320,18 +320,17 @@ function onButtonPress(buttonName) {
 function toggleDropdown() {
     dropdownList.style.display = dropdownList.style.display === 'block' ? 'none' : 'block'
     userInput.focus() // Automatically focus on the input field for immediate typing
-    if (!buttonPressed.includes('Sub')) {/*we don't want them to be able to click away for submissions*/
-        window.addEventListener('click', onClickOutsideDropdown, { capture: true/*, once: true*/ })
-        /*the once: true flag automatically removes the event listener after the first execution. 
-        This is good because I don't want it to persist because the capture flag on this one stops 
-        all other actions in a sense. The capture flag is important here because the default 
-        behavior is that when something is clicked, the element (in our problematic cases this 
-        would be a button) the event on that element gets executed and then it propagates to the 
-        window (where I am adding this event listener). But this isnt what I want, because I want 
-        the window event listener to execute first and then stop the propagation to the element's 
-        actions. This is what the capture flag does, force it to execute first, and in the function 
-        I have stop propagation, so it doesnt get to the element action*/
-    }
+    window.addEventListener('click', onClickOutsideDropdown, { capture: true/*, once: true*/ })
+    /*the once: true flag automatically removes the event listener after the first execution. 
+    This is good because I don't want it to persist because the capture flag on this one stops 
+    all other actions in a sense. The capture flag is important here because the default 
+    behavior is that when something is clicked, the element (in our problematic cases this 
+    would be a button) the event on that element gets executed and then it propagates to the 
+    window (where I am adding this event listener). But this isnt what I want, because I want 
+    the window event listener to execute first and then stop the propagation to the element's 
+    actions. This is what the capture flag does, force it to execute first, and in the function 
+    I have stop propagation, so it doesnt get to the element action*/
+
 }
 
 function clearFilter() {
@@ -456,7 +455,7 @@ function selectItem(item) {
         document.getElementById('rightScore').innerHTML = rightPoints.toFixed(1);
     }
     clearFilter()
-    window.removeEventListener('click', onClickOutsideDropdown, { capture: true/*, once: true*/ }) 
+    window.removeEventListener('click', onClickOutsideDropdown, { capture: true/*, once: true*/ })
     event_list.push({ ...current_event, event_desc: item }) /*add the name of the position or submission to the current event object and then push it to the events list*/
 }
 
