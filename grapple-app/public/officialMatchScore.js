@@ -343,9 +343,7 @@ function toggleDropdown() {
     dropdownList.style.display = dropdownList.style.display === 'block' ? 'none' : 'block'
     userInput.focus() // Automatically focus on the input field for immediate typing
     window.addEventListener('click', onClickOutsideDropdown, { capture: true/*, once: true*/ })
-    /*the once: true flag automatically removes the event listener after the first execution. 
-    This is good because I don't want it to persist because the capture flag on this one stops 
-    all other actions in a sense. The capture flag is important here because the default 
+    /*The capture flag is important here because the default 
     behavior is that when something is clicked, the element (in our problematic cases this 
     would be a button) the event on that element gets executed and then it propagates to the 
     window (where I am adding this event listener). But this isnt what I want, because I want 
