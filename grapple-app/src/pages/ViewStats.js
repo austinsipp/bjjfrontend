@@ -84,6 +84,8 @@ const ViewStats = () => {
         /*console.log("positionPieOriginalData 2",positionPieOriginalData)*/
         setPositionPieFilteredData(event.target.value === 'All' ? positionPieUnfilteredData : positionPieUnfilteredData.filter(d => d.player_id === Number(event.target.value)));
         setSubmissionPieFilteredData(event.target.value === 'All' ? submissionPieUnfilteredData : submissionPieUnfilteredData.filter(d => d.player_id === Number(event.target.value)));
+        /*console.log("unfiltered",positionPieUnfilteredData)
+        console.log("filtered",positionPieUnfilteredData.filter(d => d.player_id === Number(event.target.value)))*/
     };
 
 
@@ -94,8 +96,9 @@ const ViewStats = () => {
             <div>
                 <select onChange={handleFilterChange} value={selectedPlayer}>
                     <option value="All">All Players</option>
-                    <option value="15">Austin</option>
-                    <option value="16">Lucy</option>
+                    {existingPlayers.map(element => {
+                        return <option value={element.player_id}>{element.player_name} {element.player_school}</option>
+                    })}
                 </select>
                 <PositionPieChart data_for_viz={positionPieFilteredData}  />
                 <SubmissionPieChart data_for_viz={submissionPieFilteredData} />
