@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from 'react'
 
 import PositionPieChart from './PositionPieChart'
 import SubmissionPieChart from './SubmissionPieChart'
+import SweepsPieChart from './SweepsPieChart'
 import { CurrentUser } from '../contexts/CurrentUser';
 
 const ViewStats = () => {
@@ -12,8 +13,10 @@ const ViewStats = () => {
     const [loading, setLoading] = useState(true);
     const [positionPieFilteredData, setPositionPieFilteredData] = useState([{}])
     const [submissionPieFilteredData, setSubmissionPieFilteredData] = useState([{}])
+    const [sweepsPieFilteredData, setSweepsPieFilteredData] = useState([{}])
     const [positionPieUnfilteredData, setPositionPieUnfilteredData] = useState([{}])
     const [submissionPieUnfilteredData, setSubmissionPieUnfilteredData] = useState([{}])
+    const [sweepsPieUnfilteredData, setSweepsPieUnfilteredData] = useState([{}])
     const [existingPlayers, setExistingPlayers] = useState([])
     const [selectedPlayer, setSelectedPlayer] = useState('All');
 
@@ -61,8 +64,10 @@ const ViewStats = () => {
         if (response.ok) {
             setPositionPieFilteredData(json.positionPieChart[0]);
             setSubmissionPieFilteredData(json.submissionPieChart[0]);
+            setSweepsPieFilteredData(json.sweepsPieChart[0]);
             setPositionPieUnfilteredData(json.positionPieChart[0]);
             setSubmissionPieUnfilteredData(json.submissionPieChart[0]);
+            setSweepsPieUnfilteredData(json.sweepsPieChart[0]);
             /*positionPieOriginalData = json.positionPieChart[0];*/
             /*console.log("positionPieOriginalData 1",positionPieOriginalData)*/
             /*submissionPieOriginalData = json.submissionPieChart[0];*/
@@ -84,6 +89,7 @@ const ViewStats = () => {
         /*console.log("positionPieOriginalData 2",positionPieOriginalData)*/
         setPositionPieFilteredData(event.target.value === 'All' ? positionPieUnfilteredData : positionPieUnfilteredData.filter(d => d.player_id === Number(event.target.value)));
         setSubmissionPieFilteredData(event.target.value === 'All' ? submissionPieUnfilteredData : submissionPieUnfilteredData.filter(d => d.player_id === Number(event.target.value)));
+        setSweepsPieFilteredData(event.target.value === 'All' ? sweepsPieUnfilteredData : sweepsPieUnfilteredData.filter(d => d.player_id === Number(event.target.value)));
         /*console.log("unfiltered",positionPieUnfilteredData)
         console.log("filtered",positionPieUnfilteredData.filter(d => d.player_id === Number(event.target.value)))*/
     };
@@ -102,6 +108,7 @@ const ViewStats = () => {
                 </select>
                 <PositionPieChart data_for_viz={positionPieFilteredData}  />
                 <SubmissionPieChart data_for_viz={submissionPieFilteredData} />
+                <SweepsPieChart data_for_viz={sweepsPieFilteredData} />
             </div>
         }
     </div>
