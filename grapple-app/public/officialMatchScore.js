@@ -197,7 +197,7 @@ function onButtonPress(buttonName) {
             document.getElementById('leftScore').innerHTML = leftPoints.toFixed(1);
             event_list.push({
                 event_type: 'sweep',
-                event_desc: '',
+                event_desc: 'sweep',
                 match_time: matchSec,
                 points_awarded: ptsPerSweep,
                 player: 'left'
@@ -283,7 +283,7 @@ function onButtonPress(buttonName) {
             document.getElementById('rightScore').innerHTML = rightPoints.toFixed(1);
             event_list.push({
                 event_type: 'sweep',
-                event_desc: '',
+                event_desc: 'sweep',
                 match_time: matchSec,
                 points_awarded: ptsPerSweep,
                 player: 'right'
