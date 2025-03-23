@@ -81,6 +81,10 @@ const MatchOptions = () => {
             console.log('API response:', json)
             console.log('API response length:', json.length)
             setExistingPlayers(json)
+            setLeftPlayerID(json[0].player_id)
+            setRightPlayerID(json[0].player_id)
+            setMatchType('official')
+            setRuleSet('IBJJF')
             /*console.log("example player id:",json[0].player_id)*//*this will error out if the user hasnt created any players yet, so make sure there are players before using this for testing*/
             setRetrievingPlayers(false)/*only set this to false after successfully receiving the response and setting the existing player list*/
 
