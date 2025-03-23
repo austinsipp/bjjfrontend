@@ -14,9 +14,21 @@ var victoryAtPts = 360
 
 var event_list = []
 var current_event
+var current_state = { position_type: '', position_name: '' }
 
 
-
+var matchStartTime = 0;
+var pauseTimeOffset = 0;
+var pauseEndTime = 0;
+var pauseStartTime = 0;
+var leftDomStartTime = 0;
+var leftDomEndTime = 0;
+var leftAdvStartTime = 0;
+var leftAdvEndTime = 0;
+var rightDomStartTime = 0;
+var rightDomEndTime = 0;
+var rightAdvStartTime = 0;
+var rightAdvEndTime = 0;
 var matchSec = 0.0;
 var leftDomSec = 0.0;
 var rightDomSec = 0.0;
@@ -56,6 +68,7 @@ function clearPress() {
 
 function onLoad() {
     var timer = setInterval(function () {
+        
         if (rightPoints < victoryAtPts && leftPoints < victoryAtPts) {
             minutes = Math.floor(matchSec / 60);
             seconds = (matchSec - minutes * 60).toFixed(1);
@@ -64,27 +77,28 @@ function onLoad() {
             } else {
                 time = String(seconds)
             }
+            /*console.log("matchSec",matchSec);*/
             document.getElementById('matchTimer').innerHTML = time;
             if (!pause) {
-                matchSec = matchSec + 0.1
+                matchSec = (Date.now() - matchStartTime - pauseTimeOffset) / 1000
 
                 if (rightAdv) {
-                    rightAdvSec = rightAdvSec + 0.1;
+                    rightAdvSec = ((Date.now() - rightAdvStartTime) - (Date.now() - pauseStartTime)) / 1000;
                     rightPoints = rightPoints + ptsPerSecAdv / 10;
                     document.getElementById('rightScore').innerHTML = rightPoints.toFixed(1);
                 };
                 if (leftAdv) {
-                    leftAdvSec = leftAdvSec + 0.1;
+                    leftAdvSec = ((Date.now() - leftAdvStartTime) - (Date.now() - pauseStartTime)) / 1000;
                     leftPoints = leftPoints + ptsPerSecAdv / 10;
                     document.getElementById('leftScore').innerHTML = leftPoints.toFixed(1);
                 };
                 if (rightDom) {
-                    rightDomSec = rightDomSec + 0.1;
+                    rightDomSec = ((Date.now() - rightDomStartTime) - (Date.now() - pauseStartTime)) / 1000;
                     rightPoints = rightPoints + ptsPerSecDom / 10;
                     document.getElementById('rightScore').innerHTML = rightPoints.toFixed(1);
                 };
                 if (leftDom) {
-                    leftDomSec = leftDomSec + 0.1;
+                    leftDomSec = ((Date.now() - leftDomStartTime) - (Date.now() - pauseStartTime)) / 1000;
                     leftPoints = leftPoints + ptsPerSecDom / 10;
                     document.getElementById('leftScore').innerHTML = leftPoints.toFixed(1);
                 };
@@ -128,10 +142,11 @@ function onButtonPress(buttonName) {
     switch (buttonName) {
         case 'leftDom':
             clearPress();
-            rightDom = false;
+            /*rightDom = false;
             leftDom = true;
             rightAdv = false;
-            leftAdv = false;
+            leftAdv = false;*//*originally had this here, but now I want it only when the button is finalized*/
+            leftDomStartTime = Date.now();
             document.getElementById("leftDomination").style.background = "linear-gradient(45deg, #006B70, #003D80)";
             current_event = {
                 event_type: 'dom position reached',
@@ -147,10 +162,11 @@ function onButtonPress(buttonName) {
             break
         case 'leftAdv':
             clearPress();
-            rightDom = false;
+            /*rightDom = false;
             leftDom = false;
             rightAdv = false;
-            leftAdv = true;
+            leftAdv = true;*//*originally had this here, but now I want it only when the button is finalized*/
+            leftAdvStartTime = Date.now();
             document.getElementById("leftAdvantage").style.background = "linear-gradient(45deg, #006B70, #003D80)";
             current_event = {
                 event_type: 'adv position reached',
@@ -165,11 +181,12 @@ function onButtonPress(buttonName) {
             buttonPressed = buttonName
             break
         case 'leftSub':
-            rightDom = false;
+            /*rightDom = false;
             leftDom = false;
             rightAdv = false;
-            leftAdv = false;
+            leftAdv = false;*//*originally had this here, but now I want it only when the button is finalized*/
             pause = true;
+            pauseStartTime = Date.now();/*start pause timer, it might be zeroed out again if this was a bad press and gets canceled, but if it ends up being a good press we want to know when the press happened*/
             resetButtonText()
             clearPress();
             document.getElementById('leftScore').innerHTML = leftPoints.toFixed(1);
@@ -192,6 +209,10 @@ function onButtonPress(buttonName) {
             leftDom = false;
             rightAdv = false;
             leftAdv = false;
+            leftDomStartTime = 0;/*reset all position timers*/
+            leftAdvStartTime = 0;/*reset all position timers*/
+            rightDomStartTime = 0;/*reset all position timers*/
+            rightAdvStartTime = 0;/*reset all position timers*/
             resetButtonText()
             clearPress();
             document.getElementById('leftScore').innerHTML = leftPoints.toFixed(1);
@@ -215,10 +236,11 @@ function onButtonPress(buttonName) {
             break
         case 'rightDom':
             clearPress();
-            rightDom = true;
+            /*rightDom = true;
             leftDom = false;
             rightAdv = false;
-            leftAdv = false;
+            leftAdv = false;*//*originally had this here, but now I want it only when the button is finalized*/
+            rightDomStartTime = Date.now();
             document.getElementById("rightDomination").style.background = "linear-gradient(45deg, #80162F, #80003A)";
             current_event = {
                 event_type: 'dom position reached',
@@ -234,10 +256,11 @@ function onButtonPress(buttonName) {
             break
         case 'rightAdv':
             clearPress();
-            rightDom = false;
+            /*rightDom = false;
             leftDom = false;
             rightAdv = true;
-            leftAdv = false;
+            leftAdv = false;*//*originally had this here, but now I want it only when the button is finalized*/
+            rightAdvStartTime = Date.now();
             document.getElementById("rightAdvantage").style.background = "linear-gradient(45deg, #80162F, #80003A)";
             current_event = {
                 event_type: 'adv position reached',
@@ -252,11 +275,12 @@ function onButtonPress(buttonName) {
             buttonPressed = buttonName
             break
         case 'rightSub':
-            rightDom = false;
+            /*rightDom = false;
             leftDom = false;
             rightAdv = false;
-            leftAdv = false;
+            leftAdv = false;*//*originally had this here, but now I want it only when the button is finalized*/
             pause = true;
+            pauseStartTime = Date.now();/*start pause timer, it might be zeroed out again if this was a bad press and gets canceled, but if it ends up being a good press we want to know when the press happened*/
             resetButtonText()
             clearPress();
             current_event = {
@@ -278,6 +302,10 @@ function onButtonPress(buttonName) {
             leftDom = false;
             rightAdv = false;
             leftAdv = false;
+            leftDomStartTime = 0;/*reset all position timers*/
+            leftAdvStartTime = 0;/*reset all position timers*/
+            rightDomStartTime = 0;/*reset all position timers*/
+            rightAdvStartTime = 0;/*reset all position timers*/
             resetButtonText()
             clearPress();
             document.getElementById('rightScore').innerHTML = rightPoints.toFixed(1);
@@ -301,6 +329,7 @@ function onButtonPress(buttonName) {
             break
         case 'pause':
             pause = true;
+            pauseStartTime = Date.now();
             event_list.push({
                 event_type: 'pause',
                 event_desc: '',
@@ -309,6 +338,11 @@ function onButtonPress(buttonName) {
             })
             break
         case 'start':
+            if (matchStartTime > 0) {/*set the match start time if the match hasn't already started*/
+                matchStartTime = Date.now();
+            }
+            pauseTimeOffset = pauseTimeOffset + (Date.now() - pauseStartTime);
+            pauseStartTime = 0;
             pause = false;
             event_list.push({
                 event_type: 'start match',
@@ -351,6 +385,49 @@ function toggleDropdown() {
     actions. This is what the capture flag does, force it to execute first, and in the function 
     I have stop propagation, so it doesnt get to the element action*/
 
+}
+
+function onCancelPress() {
+    if (buttonPressed === 'leftSub' || buttonPressed === 'rightSub') {
+        pauseStartTime = 0; /*if the bad press occured on sub, then then pause timer was started, so we need to reset it*/
+    }
+    event_list.pop();/*remove bad press from the event list*/
+    dropdownList.style.display = 'none' /*get rid of the dropdown*/
+    window.removeEventListener('click', onClickOutsideDropdown, { capture: true })/*remove window event listener so user can click again*/
+    clearPress();/*re-color buttons to original*/
+    switch (current_state.position_type) {/*re-color the button that had been pressed before, if one had been pressed*/
+        case 'leftDom':
+            document.getElementById("leftDomination").style.background = "linear-gradient(45deg, #006B70, #003D80)";
+            /*leftDomStartTime = 0; don't reset the start time for the button that was pressed before the bad press*/
+            leftAdvStartTime = 0;
+            rightDomStartTime = 0;
+            rightAdvStartTime = 0;
+            break;
+        case 'leftAdv':
+            document.getElementById("leftAdvantage").style.background = "linear-gradient(45deg, #006B70, #003D80)";
+            leftDomStartTime = 0;
+            /*leftAdvStartTime = 0;don't reset the start time for the button that was pressed before the bad press*/
+            rightDomStartTime = 0;
+            rightAdvStartTime = 0;
+            break;
+        case 'rightDom':
+            document.getElementById("rightDomination").style.background = "linear-gradient(45deg, , #80162F, #80003A)";
+            leftDomStartTime = 0;
+            leftAdvStartTime = 0;
+            /*rightDomStartTime = 0;don't reset the start time for the button that was pressed before the bad press*/
+            rightAdvStartTime = 0;
+            break;
+        case 'rightAdv':
+            document.getElementById("rightAdvantage").style.background = "linear-gradient(45deg, #80162F, #80003A)";
+            leftDomStartTime = 0;
+            leftAdvStartTime = 0;
+            rightDomStartTime = 0;
+            /*rightAdvStartTime = 0;don't reset the start time for the button that was pressed before the bad press*/
+            break;
+        case '':
+            document.getElementById("neutralPosition").style.background = "linear-gradient(45deg, #B3B3B3, #8F8F8F)";
+            break;
+    }
 }
 
 function clearFilter() {
@@ -461,18 +538,74 @@ function resetButtonText() {
 function selectItem(item) {
     resetButtonText()
     if (!buttonPressed.includes('Sub')) {/*for submissions we dont want to change the button text*/
+        switch (buttonPressed) {
+            case 'leftDom':
+                /*leftDomStartTime = 0; don't reset the start time for the button that was pressed, once a person makes a selection, it is final and the event is listed, so we are ok to stop other button's time*/
+                leftAdvStartTime = 0;
+                rightDomStartTime = 0;
+                rightAdvStartTime = 0;
+                rightDom = false;/*set these flags now that the user selected an item, i.e. this event is finalized and not a bad press that the user cancels*/
+                leftDom = true;
+                rightAdv = false;
+                leftAdv = false;
+                break;
+            case 'leftAdv':
+                leftDomStartTime = 0;
+                /*leftAdvStartTime = 0; don't reset the start time for the button that was pressed, once a person makes a selection, it is final and the event is listed, so we are ok to stop other button's time*/
+                rightDomStartTime = 0;
+                rightAdvStartTime = 0;
+                rightDom = false;/*set these flags now that the user selected an item, i.e. this event is finalized and not a bad press that the user cancels*/
+                leftDom = false;
+                rightAdv = false;
+                leftAdv = true;
+                break;
+            case 'rightDom':
+                leftDomStartTime = 0;
+                leftAdvStartTime = 0;
+                /*rightDomStartTime = 0; don't reset the start time for the button that was pressed, once a person makes a selection, it is final and the event is listed, so we are ok to stop other button's time*/
+                rightAdvStartTime = 0;
+                rightDom = true;/*set these flags now that the user selected an item, i.e. this event is finalized and not a bad press that the user cancels*/
+                leftDom = false;
+                rightAdv = false;
+                leftAdv = false;
+                break;
+            case 'rightAdv':
+                leftDomStartTime = 0;
+                leftAdvStartTime = 0;
+                rightDomStartTime = 0;
+                /*rightAdvStartTime = 0; don't reset the start time for the button that was pressed, once a person makes a selection, it is final and the event is listed, so we are ok to stop other button's time*/
+                rightDom = false;/*set these flags now that the user selected an item, i.e. this event is finalized and not a bad press that the user cancels*/
+                leftDom = false;
+                rightAdv = true;
+                leftAdv = false;
+                break;
+        }
         dropdownBtn.textContent = item
+        current_state = { position_type: buttonPressed, position_name: item }/*store this so that if the next event is another dropdown but the user cancels because it was an accidental press, the game can recover to where it was*/
+        console.log(current_state);
     }
     dropdownList.style.display = 'none' // Close the dropdown
     if (buttonPressed == 'leftSub') {
+        leftDomStartTime = 0;/*reset all position timers*/
+        leftAdvStartTime = 0;/*reset all position timers*/
+        rightDomStartTime = 0;/*reset all position timers*/
+        rightAdvStartTime = 0;/*reset all position timers*/
         leftSubCount++;
         leftPoints = leftPoints + ptsPerSub;
         document.getElementById('leftScore').innerHTML = leftPoints.toFixed(1);
+        current_state = { position_type: '', position_name: '' }
+        console.log(current_state);
     }
     if (buttonPressed == 'rightSub') {
+        leftDomStartTime = 0;/*reset all position timers*/
+        leftAdvStartTime = 0;/*reset all position timers*/
+        rightDomStartTime = 0;/*reset all position timers*/
+        rightAdvStartTime = 0;/*reset all position timers*/
         rightSubCount++;
         rightPoints = rightPoints + ptsPerSub;
         document.getElementById('rightScore').innerHTML = rightPoints.toFixed(1);
+        current_state = { position_type: '', position_name: '' }
+        console.log(current_state);
     }
     clearFilter()
     window.removeEventListener('click', onClickOutsideDropdown, { capture: true/*, once: true*/ })

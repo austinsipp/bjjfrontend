@@ -14,7 +14,7 @@
 
 <body>
     <div id="title">
-        <img id="trademarkName" src="../src/grapplestatsLogo.png" alt="GrappleApp Logo" className="logo" />
+        <img id="trademarkName" src="./grapplestatsLogo.png" alt="GrappleApp Logo" className="logo" />
     </div>
     <div id="scoreboard">
         <div id="leftScore">0</div>
@@ -27,8 +27,9 @@
                 <button id="leftDomination" class="button-domLeft">Dom
                     Position</button>
                 <div id="left-dom-dropdown-list" class="dropdown-list">
-                    <input type="text" id="left-dom-dropdown-input" class="dropdown-input" placeholder="Search...">
-                    <button id="leftDominationCancel" class="button-dom-cancelLeft">Cancel</button>
+                    <input type="text" id="left-dom-dropdown-input" class="dropdown-input" value="Unspecified" placeholder="Search...">
+                    <button id="leftDominationCancel" class="button-dom-cancelLeft" onClick="onCancelPress()">Cancel</button>
+                    <div class="dropdown-item" onclick="selectItem('Unspecified')">Unspecified</div>
                     <div class="dropdown-item" onclick="selectItem('Side Control')">Side Control</div>
                     <div class="dropdown-item" onclick="selectItem('Back Take')">Back Take</div>
                     <div class="dropdown-item" onclick="selectItem('Full Mount')">Full Mount</div>
@@ -37,8 +38,9 @@
             <div id="left-adv-dropdown" class="dropdown-container">
                 <button id="leftAdvantage" class="button-advLeft">Advantage</button>
                 <div id="left-adv-dropdown-list" class="dropdown-list">
-                    <input type="text" id="left-adv-dropdown-input" class="dropdown-input" placeholder="Search...">
-                    <button id="leftAdvantageCancel" class="button-adv-cancelLeft">Cancel</button>
+                    <input type="text" id="left-adv-dropdown-input" class="dropdown-input" value="Unspecified" placeholder="Search...">
+                    <button id="leftAdvantageCancel" class="button-adv-cancelLeft" onClick="onCancelPress()">Cancel</button>
+                    <div class="dropdown-item" onclick="selectItem('Unspecified')">Unspecified</div>
                     <div class="dropdown-item" onclick="selectItem('Half Guard')">Half Guard</div>
                     <div class="dropdown-item" onclick="selectItem('Deep Half')">Deep Half</div>
                     <div class="dropdown-item" onclick="selectItem('Quarter Guard')">Quarter Guard</div>
@@ -50,8 +52,9 @@
                 <div class="dropdown-container">
                     <button id="leftSubmission" class="sweepSubButtonLeft">Submission</button>
                     <div id="left-sub-dropdown-list" class="dropdown-list">
-                        <input type="text" id="left-sub-dropdown-input" class="dropdown-input" placeholder="Search...">
-                        <button id="leftSubmissionCancel" class="button-sub-cancelLeft">Cancel</button>
+                        <input type="text" id="left-sub-dropdown-input" class="dropdown-input" value="Unspecified" placeholder="Search...">
+                        <button id="leftSubmissionCancel" class="button-sub-cancelLeft" onClick="onCancelPress()">Cancel</button>
+                        <div class="dropdown-item" onclick="selectItem('Unspecified')">Unspecified</div>
                         <div class="dropdown-item" onclick="selectItem('Kimura')">Kimura</div>
                         <div class="dropdown-item" onclick="selectItem('Americana')">Americana</div>
                         <div class="dropdown-item" onclick="selectItem('Rear Naked Choke')">Rear Naked Choke</div>
@@ -72,8 +75,9 @@
             <div id="right-dom-dropdown" class="dropdown-container">
                 <button id="rightDomination" class="button-domRight">Dom Position</button>
                 <div id="right-dom-dropdown-list" class="dropdown-list">
-                    <input type="text" id="right-dom-dropdown-input" class="dropdown-input" placeholder="Search...">
-                    <button id="rightDominationCancel" class="button-dom-cancelRight">Cancel</button>
+                    <input type="text" id="right-dom-dropdown-input" class="dropdown-input" value="Unspecified" placeholder="Search...">
+                    <button id="rightDominationCancel" class="button-dom-cancelRight" onClick="onCancelPress()">Cancel</button>
+                    <div class="dropdown-item" onclick="selectItem('Unspecified')">Unspecified</div>
                     <div class="dropdown-item" onclick="selectItem('Side Control')">Side Control</div>
                     <div class="dropdown-item" onclick="selectItem('Back Take')">Back Take</div>
                     <div class="dropdown-item" onclick="selectItem('Full Mount')">Full Mount</div>
@@ -82,8 +86,9 @@
             <div id="right-adv-dropdown" class="dropdown-container">
                 <button id="rightAdvantage" class="button-advRight">Advantage</button>
                 <div id="right-adv-dropdown-list" class="dropdown-list">
-                    <input type="text" id="right-adv-dropdown-input" class="dropdown-input" placeholder="Search...">
-                    <button id="rightAdvantageCancel" class="button-adv-cancelRight">Cancel</button>
+                    <input type="text" id="right-adv-dropdown-input" class="dropdown-input" value="Unspecified" placeholder="Search...">
+                    <button id="rightAdvantageCancel" class="button-adv-cancelRight" onClick="onCancelPress()">Cancel</button>
+                    <div class="dropdown-item" onclick="selectItem('Unspecified')">Unspecified</div>
                     <div class="dropdown-item" onclick="selectItem('Half Guard')">Half Guard</div>
                     <div class="dropdown-item" onclick="selectItem('Deep Half')">Deep Half</div>
                     <div class="dropdown-item" onclick="selectItem('Quarter Guard')">Quarter Guard</div>
@@ -95,8 +100,9 @@
                 <div id="right-sub-dropdown" class="dropdown-container">
                     <button id="rightSubmission" class="sweepSubButtonRight">Submission</button>
                     <div id="right-sub-dropdown-list" class="dropdown-list">
-                        <input type="text" id="right-sub-dropdown-input" class="dropdown-input" placeholder="Search...">
-                        <button id="rightSubmissionCancel" class="button-sub-cancelRight">Cancel</button>
+                        <input type="text" id="right-sub-dropdown-input" class="dropdown-input" value="Unspecified" placeholder="Search...">
+                        <button id="rightSubmissionCancel" class="button-sub-cancelRight" onClick="onCancelPress()">Cancel</button>
+                        <div class="dropdown-item" onclick="selectItem('Unspecified')">Unspecified</div>
                         <div class="dropdown-item" onclick="selectItem('Kimura')">Kimura</div>
                         <div class="dropdown-item" onclick="selectItem('Americana')">Americana</div>
                         <div class="dropdown-item" onclick="selectItem('Rear Naked Choke')">Rear Naked Choke</div>
