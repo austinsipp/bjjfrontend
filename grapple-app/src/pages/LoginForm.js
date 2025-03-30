@@ -38,7 +38,7 @@ function LoginForm() {
     return (
         <main className="loginPageParent">
             <div className="loginPage">
-            <h1>Welcome to GrappleApp!</h1>
+            <h1>Welcome to GrappleStats!</h1>
             {errorMessage !== null
                 ? (
                     <div className="alert alert-danger" role="alert">
