@@ -13,7 +13,7 @@ function CurrentUserProvider({ children }){
     useEffect( ()=> {
         const getLoggedInUser = async () => {
             console.log('getting current user first notice')
-            let response = await fetch('http://localhost:5000/profile', {
+            let response = await fetch(`${process.env.REACT_APP_BASE_API_URL}/profile`, {
                 credentials: 'include'/*this flag is to send the session cookie as well to be checked for validity*/
             })
             console.log('getting current user')

@@ -33,7 +33,7 @@ const MatchOptions = () => {
     const createMatch = async (event, matchType, ruleSet) => {
         event.preventDefault()
         console.log("match options:",{ ruleSet, matchType, leftPlayerID, rightPlayerID })
-        const response = await fetch('http://localhost:5000/matches/add', {
+        const response = await fetch(`${process.env.REACT_APP_BASE_API_URL}/matches/add`, {
             credentials: 'include',
             method: 'POST',
             body: JSON.stringify({ ruleSet, matchType, leftPlayerID, rightPlayerID }), /*send all the match options in order to create a match*/ 
@@ -67,7 +67,7 @@ const MatchOptions = () => {
     
 
     const getPlayerList = async () => {
-        const response = await fetch('http://localhost:5000/players/retrievePlayers', {
+        const response = await fetch(`${process.env.REACT_APP_BASE_API_URL}/players/retrievePlayers`, {
             credentials: 'include',
             method: 'GET',
             headers: {

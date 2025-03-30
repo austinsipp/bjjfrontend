@@ -24,7 +24,7 @@ const ViewStats = () => {
     let submissionPieOriginalData = [{}]*/
 
     const getPlayerList = async () => {
-        const response = await fetch('http://localhost:5000/players/retrievePlayers', {
+        const response = await fetch(`${process.env.REACT_APP_BASE_API_URL}/players/retrievePlayers`, {
             credentials: 'include',
             method: 'GET',
             headers: {
@@ -50,7 +50,7 @@ const ViewStats = () => {
     const getData = async () => {
         setLoading(true)
         await getPlayerList()
-        const response = await fetch('http://localhost:5000/stats', {
+        const response = await fetch(`${process.env.REACT_APP_BASE_API_URL}/stats`, {
             credentials: 'include',
             method: 'GET',
             headers: {

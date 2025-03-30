@@ -19,7 +19,7 @@ const AddUser = (currentUser) => {
     */
     const onAddUserSubmit = async () => {
         console.log(addedUser)
-        const response = await fetch('http://localhost:5000/users/add', {
+        const response = await fetch(`${process.env.REACT_APP_BASE_API_URL}/users/add`, {
             credentials: 'include',
             method: 'POST',
             body: JSON.stringify(addedUser), 

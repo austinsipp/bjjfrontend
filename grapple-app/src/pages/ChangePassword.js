@@ -31,7 +31,7 @@ const ChangePassword = () => {
         if (errorMessage === null) {/*only submit if the final check is passed*/
             
             console.log(pwChangeData)
-            const response = await fetch('http://localhost:5000/changepassword', {
+            const response = await fetch(`${process.env.REACT_APP_BASE_API_URL}/changepassword`, {
                 credentials: 'include',
                 method: 'POST',
                 body: JSON.stringify(pwChangeData), 

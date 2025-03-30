@@ -18,7 +18,7 @@ function LoginForm() {
     */
     async function handleSubmit(e) {
         e.preventDefault()/*prevent a full page reload on a submit button click*/
-        const response = await fetch('http://localhost:5000/', {
+        const response = await fetch(`${process.env.REACT_APP_BASE_API_URL}/`, {
             method: 'POST',
             credentials: 'include',
             headers: {

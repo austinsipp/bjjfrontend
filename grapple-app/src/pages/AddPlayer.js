@@ -32,7 +32,7 @@ const AddPlayer = (passdownFunctionReceived) => {
     const onSubmitClick = async () => {
         setAddPlayerSubmitted(true)
         setAddPlayerClick(false)
-        const response = await fetch('http://localhost:5000/players/add', {
+        const response = await fetch(`${process.env.REACT_APP_BASE_API_URL}/players/add`, {
             credentials: 'include',
             method: 'POST',
             body: JSON.stringify(addedPlayer), 
