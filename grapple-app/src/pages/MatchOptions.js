@@ -32,11 +32,11 @@ const MatchOptions = () => {
 
     const createMatch = async (event, matchType, ruleSet) => {
         event.preventDefault()
-        console.log("match options:",{ ruleSet, matchType, leftPlayerID, rightPlayerID })
+        console.log("match options:", { ruleSet, matchType, leftPlayerID, rightPlayerID })
         const response = await fetch(`${process.env.REACT_APP_BASE_API_URL}/matches/add`, {
             credentials: 'include',
             method: 'POST',
-            body: JSON.stringify({ ruleSet, matchType, leftPlayerID, rightPlayerID }), /*send all the match options in order to create a match*/ 
+            body: JSON.stringify({ ruleSet, matchType, leftPlayerID, rightPlayerID }), /*send all the match options in order to create a match*/
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -48,7 +48,7 @@ const MatchOptions = () => {
             console.log('API response:', json)
             sessionStorage.setItem('MatchID', JSON.stringify(json))/*we are about to redirect to the stat taking page, so we need to store this in the browser so it is available after we redirect*/
             /*After the API call if it is successful, navigate to the stat taking page*/
-            window.location.href = './officialmatch.html';  
+            window.location.href = './officialmatch.html';
             console.log('API response:', json)
         } else {
             console.log('There was an error creating a new match. Please try again.')
@@ -60,11 +60,11 @@ const MatchOptions = () => {
     const refreshPlayerList = () => {
         // Toggle the trigger to force re-run of useEffect
         setTrigger(!trigger);
-      };
+    };
 
 
 
-    
+
 
     const getPlayerList = async () => {
         const response = await fetch(`${process.env.REACT_APP_BASE_API_URL}/players/retrievePlayers`, {
@@ -77,12 +77,14 @@ const MatchOptions = () => {
         )
         //get the json response
         const json = await response.json()
-        if (response.ok ) {
+        if (response.ok) {
             console.log('API response:', json)
             console.log('API response length:', json.length)
-            setExistingPlayers(json)
-            setLeftPlayerID(json[0].player_id)
-            setRightPlayerID(json[0].player_id)
+            if (json.length > 0) {
+                setExistingPlayers(json)
+                setLeftPlayerID(json[0].player_id)
+                setRightPlayerID(json[0].player_id)
+            }
             setMatchType('official')
             setRuleSet('IBJJF')
             /*console.log("example player id:",json[0].player_id)*//*this will error out if the user hasnt created any players yet, so make sure there are players before using this for testing*/
@@ -123,30 +125,30 @@ const MatchOptions = () => {
                 </form>
                 {<AddPlayer passdownFunction={refreshPlayerList} />/*need to passdown the refreshPlayerList function because when a player is added, which only happens in this child component, we want the dropdown list to update to include the new player*/}
                 <div className="navbarmatchtype">
-                <form id="inputForm">
-                    <label for="matchTypeField">Match Type:</label>
-                    <select type="text" id="matchTypeField" required onChange={(e) => {
-                        setMatchType(e.target.value)
-                    }}>{/*this field allows the user to input how competitive they 
+                    <form id="inputForm">
+                        <label for="matchTypeField">Match Type:</label>
+                        <select type="text" id="matchTypeField" required onChange={(e) => {
+                            setMatchType(e.target.value)
+                        }}>{/*this field allows the user to input how competitive they 
                     are being. On the stats page they will eventually be able to 
                     filter out friendly matches and include only ones they are 
                     being a certain level of competitive, if they want to look at it that way*/}
-                        <option value="official">Official Match</option>
-                        <option value="practice">Practice Match</option>
-                        <option value="competitive">Competitive Match</option>
-                    </select>
-                </form>
-                <form id="inputForm">
-                    <label for="ruleSetField">Rule Set:</label>
-                    <select type="text" id="ruleSetField" required onChange={(e) => {
-                        setRuleSet(e.target.value)
-                    }}>
-                        <option value="IBJJF">IBJJF</option>
-                        <option value="ADCC">ADCC</option>
-                        <option value="GrappleStats Control">GrappleStats Control</option>
-                    </select>
-                </form>
-                <button id="matchCreateSubmit" onClick={createOfficialMatchClick}>Create Match</button>
+                            <option value="official">Official Match</option>
+                            <option value="practice">Practice Match</option>
+                            <option value="competitive">Competitive Match</option>
+                        </select>
+                    </form>
+                    <form id="inputForm">
+                        <label for="ruleSetField">Rule Set:</label>
+                        <select type="text" id="ruleSetField" required onChange={(e) => {
+                            setRuleSet(e.target.value)
+                        }}>
+                            <option value="IBJJF">IBJJF</option>
+                            <option value="ADCC">ADCC</option>
+                            <option value="GrappleStats Control">GrappleStats Control</option>
+                        </select>
+                    </form>
+                    <button id="matchCreateSubmit" onClick={createOfficialMatchClick}>Create Match</button>
                 </div>
             </div>
         } else {
