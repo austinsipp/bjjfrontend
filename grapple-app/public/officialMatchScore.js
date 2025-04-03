@@ -614,7 +614,7 @@ function selectItem(item) {
 
 const submitResults = async () => {
     console.log("json body:", { match_id, event_list })
-    const response = await fetch(`http://localhost:5000/matchdata/add`, {
+    const response = await fetch(`http://localhost:5000/api/matchdata/add`, {
         credentials: 'include',
         method: 'POST',
         body: JSON.stringify({ match_id, event_list }), //make the object json 
