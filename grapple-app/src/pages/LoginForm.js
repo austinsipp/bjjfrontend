@@ -1,9 +1,19 @@
 import { useContext, useState } from "react"
+import { Link, useLocation } from "react-router-dom"
 import { CurrentUser } from "../contexts/CurrentUser"
 
-function LoginForm() {
+function LoginForm({fullPageSetter}) {
 
     const { setCurrentUser } = useContext(CurrentUser)
+
+    /*const location = useLocation()
+
+    const fullPageDisplay = ['/forgotpassword', '/signup'].includes(location.pathname)
+
+    console.log("fullPageDisplay" ,fullPageDisplay)
+    console.log("location" ,location)
+
+    fullPageSetter(fullPageDisplay)*/
 
     const [credentials, setCredentials] = useState({
         username: '',
@@ -36,48 +46,53 @@ function LoginForm() {
     }
 
     return (
+
         <main className="loginPageParent">
             <div className="loginPage">
-            <h1>Welcome to GrappleStats!</h1>
-            {errorMessage !== null
-                ? (
-                    <div className="alert alert-danger" role="alert">
-                        {errorMessage}
+                <h1>Welcome to GrappleStats!</h1>
+                {errorMessage !== null
+                    ? (
+                        <div className="alert alert-danger" role="alert">
+                            {errorMessage}
+                        </div>
+                    )
+                    : null
+                }
+                <form onSubmit={handleSubmit}>
+                    <div className="row">
+                        <div className="col-sm-6 form-group">
+                            <label htmlFor="username">Username</label>
+                            <input
+                                type="text"
+                                required
+                                value={credentials.username}
+                                onChange={e => setCredentials({ ...credentials, username: e.target.value })}
+                                className="form-control"
+                                id="username"
+                                name="username"
+                            />
+                        </div>
+                        <div className="col-sm-6 form-group">
+                            <label htmlFor="password">Password</label>
+                            <input
+                                type="password"
+                                required
+                                value={credentials.password}
+                                onChange={e => setCredentials({ ...credentials, password: e.target.value })}
+                                className="form-control"
+                                id="password"
+                                name="password"
+                            />
+                        </div>
                     </div>
-                )
-                : null
-            }
-            <form onSubmit={handleSubmit}>
-                <div className="row">
-                    <div className="col-sm-6 form-group">
-                        <label htmlFor="username">Username</label>
-                        <input
-                            type="text"
-                            required
-                            value={credentials.username}
-                            onChange={e => setCredentials({ ...credentials, username: e.target.value })}
-                            className="form-control"
-                            id="username"
-                            name="username"
-                        />
-                    </div>
-                    <div className="col-sm-6 form-group">
-                        <label htmlFor="password">Password</label>
-                        <input
-                            type="password"
-                            required
-                            value={credentials.password}
-                            onChange={e => setCredentials({ ...credentials, password: e.target.value })}
-                            className="form-control"
-                            id="password"
-                            name="password"
-                        />
-                    </div>
-                </div>
-                <input className="btn btn-primary logonButton" type="submit" value="Login" />
-            </form>
+                    <input className="btn btn-primary logonButton" type="submit" value="Login" />
+                </form>
+                <Link to="/signup"><h3>Don't have an account? Sign up!</h3></Link>
+                <Link to="/forgotpassword"><h3>Forgot Password</h3></Link>
             </div>
         </main>
+
+
     )
 }
 
