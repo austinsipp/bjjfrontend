@@ -14,6 +14,7 @@ const ChangePassword = () => {
 
 
     const [errorMessage, setErrorMessage] = useState("no error")/*store the error message if there is one or "no error" until there is one*/
+    const [changePWStatusResponse, setChangePWStatusResponse] = useState({status: "not yet", redirectTo: "nowhere"})
 
     const checkMatch = () => {/*just checks whether the new passwords were typed correctly twice*/
         if (pwChangeData.new === pwChangeData.confirm) {
@@ -28,7 +29,7 @@ const ChangePassword = () => {
     const onSubmitClick = async (event) => {
         event.preventDefault()/*prevents the page reload when a submit button is clicked*/
         checkMatch()/*check that the passwords match one final time*/
-        if (errorMessage === null) {/*only submit if the final check is passed*/
+        if (errorMessage === "no error") {/*only submit if the final check is passed*/
             
             console.log(pwChangeData)
             const response = await fetch(`${process.env.REACT_APP_BASE_API_URL}/changepassword`, {
@@ -44,6 +45,7 @@ const ChangePassword = () => {
             const json = await response.json()
             if (response.ok) {
                 console.log('API response:', json)
+                setChangePWStatusResponse({...changePWStatusResponse, status: json.status, redirectTo: json.redirectTo})
 
             } else {
                 console.log('Error:', json.error)/*backend has some helpful error messages and eventually we only want preset ones here, but it currently sends the error message no matter what it is*/
@@ -56,6 +58,12 @@ const ChangePassword = () => {
 
 
     return (/*can implement password rules in the future here*/
+        (changePWStatusResponse.status === "Password Changed!") ? 
+        <div>
+            <h1>Password Changed!</h1>
+            <a href={changePWStatusResponse.redirectTo}>Back to homepage</a>
+        </div> 
+            : 
         <div>
             <form id="inputForm">
                 <label htmlFor="currentPassword">Current Password</label>
@@ -81,8 +89,10 @@ const ChangePassword = () => {
                 <></>
             }
         </div>
+        )
+    }
 
-    )
-}
+    
+
 
 export default ChangePassword;

@@ -19,7 +19,18 @@ import ForgotPassword from './ForgotPassword';
 import HomePage from './HomePage.js';
 
 
-
+/*had to make a homepage control in order to make the 
+browser back button work properly. Previously the homepage 
+was not the outcome of a route. I had no routes defined at 
+url '/' and so when you got somewhere and then hit the back 
+button, which goes to URL '/', there was an error. The only 
+way it knew to show the homepage whne you first go to it is 
+because the index page ultimately pointed to the homepage, 
+but then the back button didn't work as intended. Now I have 
+defined the homepage as route '/' and I needed this homepage 
+control page to store all the routes. The default url '/' 
+still serves the homepage and I still preserve all the security 
+on these routes.*/
 
 function HomePageControl() {
     const { currentUser } = useContext(CurrentUser)
@@ -38,18 +49,6 @@ function HomePageControl() {
     const roleSwitchRoutes = () => {
         if (currentUser!== null && currentUser.roles.includes('Admin')) {/*admins can do everything*/
             return <Routes>
-                {/*<Route
-                    path='/'
-                    element={<Navigate to='/schedule' />}
-                />
-                <Route
-                    path='/schedule'
-                    element={<Schedule />}
-                />}{/*}
-                <Route
-                    path='/ptoRequest'
-                    element={<PTORequest />}
-                />*/}
                 <Route
                     path='/'
                     element={<HomePage />}
@@ -85,14 +84,6 @@ function HomePageControl() {
             </Routes>
         } else if (currentUser!== null && currentUser.roles.includes('Gym Owner')) {/*gym owners have access to all tabs currently, but when they go to add user tab they can't create all user types*/
             return <Routes>
-                {/*<Route
-                    path='/'
-                    element={<Navigate to='/schedule' />}
-                />
-                <Route
-                    path='/schedule'
-                    element={<Schedule />}
-                />*/}
                 <Route
                     path='/'
                     element={<HomePage />}
@@ -128,14 +119,6 @@ function HomePageControl() {
             </Routes>
         } else if (currentUser!== null && currentUser.roles.includes('Parent')) {/*parents have access to all tabs currently, but when they go to add user tab they can't create all user types*/
             return <Routes>
-                {/*<Route
-                    path='/'
-                    element={<Navigate to='/schedule' />}
-                />
-                <Route
-                    path='/schedule'
-                    element={<Schedule />}
-                />*/}
                 <Route
                     path='/'
                     element={<HomePage />}
@@ -177,14 +160,6 @@ function HomePageControl() {
             the users, and the professor just takes stats with the users 
             the gym owner created*/
             return <Routes>
-                {/*<Route
-                    path='/'
-                    element={<Navigate to='/schedule' />}
-                />
-                <Route
-                    path='/schedule'
-                    element={<Schedule />}
-                />*/}
                 <Route
                     path='/'
                     element={<HomePage />}
